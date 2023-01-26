@@ -1,19 +1,23 @@
 Package: MLBuoy
 Type: Package
-Title: What the Package Does (Title Case)
+Title: Muskegon Lake Buoy Data and Graph
 Version: 0.1.0
-Author: Who wrote it
-Maintainer: The package maintainer <yourself@somewhere.net>
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
-License: What license is it under?
-Imports:
-    ggplot2,
-    tibble,
-    tidyverse
+Author: c(person("Beatrice", "Ngigi", 
+            email = "ngigib@mail.gvsu.edu")
+            person("Andrew", "Dilernia",
+            email = "andrew.s.dilernia@gmail.com",
+Maintainer: The package maintainer <ngigib@mail.gvsu.edu>
+Description: It extracts data from GVSU Muskegon Lake Buoy website <https://www.gvsu.edu/wri/buoy/data-api.htm> and generates graphs.
+License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.2.3
 Suggests: 
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
+Imports:
+    ggplot2,
+    tibble,
+    tidyverse
+Depends: 
+    R(>= 2.10)
