@@ -2,10 +2,34 @@
 % Please edit documentation in R/MLBuoy.R
 \name{muskegonLakeBuoyGraph}
 \alias{muskegonLakeBuoyGraph}
-\title{Muskegon Lake Buoy Graph}
+\title{Visualizing Muskegon Lake Buoy Data}
 \usage{
-muskegonLakeBuoyGraph(x = NULL, y = NULL, chart_type)
+muskegonLakeBuoyGraph(x = NULL, y = NULL, graph_type)
+}
+\arguments{
+\item{x}{The values to be plotted on the x-axis of the graph.}
+
+\item{y}{The values to be used on the y-axis of the graph.
+Multiple y values should be separated by a comma.}
+
+\item{graph_type}{The type of chart to be plotted.
+The supported types are scatter, line, bar, and boxplot.}
+}
+\value{
+A graph of x values by y values
 }
 \description{
-Creating plotting function
+This function offers a simple method to retrieve and display data from the Muskegon Lake Buoy through the use of Application Programming Interface.
+The raw data is transformed into an easy-to-read and visually appealing graph, facilitating comprehension and analysis.
+}
+\details{
+The arguments for x and y must be supported values. More information can be found at Grand Valley State University Muskegon Lake Buoy website: \url{https://www.gvsu.edu/wri/buoy/data-api.htm}
+}
+\examples{
+muskegonLakeBuoyGraph(x="weekday",y="rh1", graph_type="line")
+}
+\author{
+Beatrice Ngigi
+
+Andrew DiLernia
 }

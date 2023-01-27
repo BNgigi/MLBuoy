@@ -5,6 +5,6 @@ test_that("Checking if the data is loaded from the API", {
 
 
 test_that("Creating plots", {
-  plts <- muskegonLakeBuoyGraph(x='weekday',y='rh1',chart_type = 'scatter')
+  plts <- muskegonLakeBuoyGraph(x='weekday',y='rh1',graph_type = 'scatter')
   expect_error(plts, NA)
 })

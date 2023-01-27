@@ -36,17 +36,17 @@ If no value is provided then all points are considered.}
 A data frame based on the provided parameters.
 }
 \description{
-This function obtains Muskegon Lake Buoy Data through Application Programming Interface.
-It gives the current conditions and historic data from the Muskegon Lake buoy since 2011.
+This function is a handy tool that allows the user to retrieve valuable information about the current conditions and historical data of the Muskegon Lake buoy, all through the convenience of an Application Programming Interface.
+It provides comprehensive understanding of the lake's conditions over time as it grants access to a wealth of data dating back to 2011.
 }
 \details{
-The parameters must use supported values. More information can be found at the GVSU Muskegon Lake Buoy website: \url{https://www.gvsu.edu/wri/buoy/data-api.htm}
+The arguments must use supported values. More information can be found at Grand Valley State University Muskegon Lake Buoy website: \url{https://www.gvsu.edu/wri/buoy/data-api.htm}
 }
 \examples{
 muskegonLakeBuoyData(y="atmp1,tp001,tp002", x="date", date="7/7/11,7/14/11,7/21/11,7/28/11", concentration="1")
 }
 \author{
-* Beatrice Ngigi
+Beatrice Ngigi
 
-* Andrew DiLernia
+Andrew DiLernia
 }

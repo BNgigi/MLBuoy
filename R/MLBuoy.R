@@ -4,8 +4,8 @@
 
 #' @title Extracting Muskegon Lake Buoy Data
 #'
-#' @description This function obtains Muskegon Lake Buoy Data through Application Programming Interface.
-#' It gives the current conditions and historic data from the Muskegon Lake buoy since 2011.
+#' @description This function is a handy tool that allows the user to retrieve valuable information about the current conditions and historical data of the Muskegon Lake buoy, all through the convenience of an Application Programming Interface.
+#' It provides comprehensive understanding of the lake's conditions over time as it grants access to a wealth of data dating back to 2011.
 #' @param y At least one y value is required.
 #' Multiple y values should be separated by a comma.
 #' @param x A single x value may be used.
@@ -18,14 +18,12 @@
 #' @param concentration A decimal number in the range .01-1.0 which represents the total amount of y plots per x variable.
 #' The closer to 1 this number is, the more points will be present in the output and the more accurate the graph.
 #' If no value is provided then all points are considered.
-#' @details The parameters must use supported values. More information can be found at the GVSU Muskegon Lake Buoy website: \url{https://www.gvsu.edu/wri/buoy/data-api.htm}
+#' @details The arguments must use supported values. More information can be found at Grand Valley State University Muskegon Lake Buoy website: \url{https://www.gvsu.edu/wri/buoy/data-api.htm}
 #' @return A data frame based on the provided parameters.
 #' @import tidyverse tibble ggplot2
 #' @examples muskegonLakeBuoyData(y="atmp1,tp001,tp002", x="date", date="7/7/11,7/14/11,7/21/11,7/28/11", concentration="1")
-#' @author
-#' * Beatrice Ngigi
-#'
-#' * Andrew DiLernia
+#' @author Beatrice Ngigi
+#' @author Andrew DiLernia
 #'
 #'
 #' @export
@@ -50,12 +48,26 @@ muskegonLakeBuoyData <- function(y, x=NULL, date = NULL, time = NULL,
 }
 
 
-#' @title Muskegon Lake Buoy Graph
-#' @name muskegonLakeBuoyGraph
-#' @description Creating plotting function
+#' @title Visualizing Muskegon Lake Buoy Data
+#'
+#' @description This function offers a simple method to retrieve and display data from the Muskegon Lake Buoy through the use of Application Programming Interface.
+#' The raw data is transformed into an easy-to-read and visually appealing graph, facilitating comprehension and analysis.
+#' @param x The values to be plotted on the x-axis of the graph.
+#' @param y The values to be used on the y-axis of the graph.
+#' Multiple y values should be separated by a comma.
+#' @param graph_type The type of chart to be plotted.
+#' The supported types are scatter, line, bar, and boxplot.
+#' @details The arguments for x and y must be supported values. More information can be found at Grand Valley State University Muskegon Lake Buoy website: \url{https://www.gvsu.edu/wri/buoy/data-api.htm}
+#' @return A graph of x values by y values
+#' @import tidyverse tibble ggplot2
+#' @examples muskegonLakeBuoyGraph(x="weekday",y="rh1", graph_type="line")
+#' @author Beatrice Ngigi
+#' @author Andrew DiLernia
+#'
+#'
 #' @export
 
-muskegonLakeBuoyGraph <- function(x = NULL, y = NULL, chart_type) {
+muskegonLakeBuoyGraph <- function(x = NULL, y = NULL, graph_type) {
 
   # Calling the muskegonLakeBuoyData function
   mlData <- muskegonLakeBuoyData(x = x, y = y, date = NULL, time = NULL,
@@ -149,7 +161,7 @@ muskegonLakeBuoyGraph <- function(x = NULL, y = NULL, chart_type) {
   x_val <- x_parameters[[x]]
   y_val <- y_parameters[[y]]
 
-  if(chart_type == "scatter"){
+  if(graph_type == "scatter"){
     plt <- ggplot(mlData, aes_string(x=paste0('x_',x),
                                      y=paste0('y_',y))) +
       geom_point() +
@@ -162,7 +174,7 @@ muskegonLakeBuoyGraph <- function(x = NULL, y = NULL, chart_type) {
 
     return(plt)
 
-  } else if (chart_type == "line"){
+  } else if (graph_type == "line"){
     plt <- ggplot(mlData, aes_string(x=paste0('x_',x),
                                      y=paste0('y_',y)))  +
       stat_summary(geom="line", fun=mean, size=1) +
@@ -174,7 +186,7 @@ muskegonLakeBuoyGraph <- function(x = NULL, y = NULL, chart_type) {
 
     return(plt)
 
-  }else if (chart_type == "boxplot"){
+  }else if (graph_type == "boxplot"){
     plt <- ggplot(mlData, aes_string(x=paste0("x_", as.factor(x)),
                                      y=paste0("y_", y))) +
       geom_boxplot() +
@@ -189,7 +201,7 @@ muskegonLakeBuoyGraph <- function(x = NULL, y = NULL, chart_type) {
 
     return(plt)
 
-  }else if (chart_type == "bar"){
+  }else if (graph_type == "bar"){
     plt <- ggplot(mlData, aes_string(x=paste0("x_", x),
                                      y=paste0("y_", y))) +
       geom_bar(stat="identity") +
