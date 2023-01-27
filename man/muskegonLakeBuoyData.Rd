@@ -5,8 +5,8 @@
 \title{Extracting Muskegon Lake Buoy Data}
 \usage{
 muskegonLakeBuoyData(
-  x = NULL,
   y,
+  x = NULL,
   date = NULL,
   time = NULL,
   concentration = NULL,
@@ -14,32 +14,35 @@ muskegonLakeBuoyData(
 )
 }
 \arguments{
-\item{x}{A single x value may be passed to the API.}
+\item{y}{At least one y value is required.
+Multiple y values should be separated by a comma.}
 
-\item{y}{At least one y value must be passed to the API.
-Multiple y values can be separated by a comma.}
+\item{x}{A single x value may be used.}
 
-\item{date}{Date values must be in the format MM/DD/YYYY or M/D/YY and can be either ranges separated by hyphens, individual dates separated by commas, or any combination of the two.
+\item{date}{Date values must be in the format MM/DD/YYYY or M/D/YY and can be either ranges separated by hyphens or commas.
 If no value is provided then all dates are considered.}
 
-\item{time}{Time values must be in the 24-hour format H:MM or HH:MM and can be either ranges separated by hyphens, individual times separated by commas, or any combination of the two.
-Times must also be divisible by 15 minutes (0:00, 0:15, 0:30, and 0:45).
+\item{time}{Time values must be in the 24-hour format H:MM or HH:MM and can be either ranges separated by hyphens or commas.
+The values must also be divisible by 15 minutes (0:00, 0:15, 0:30, and 0:45).
 If no value is provided then all times are considered.}
 
 \item{concentration}{A decimal number in the range .01-1.0 which represents the total amount of y plots per x variable.
-The closer to 1 this number is, the more points will be present in the output and the more accurate the graph.}
+The closer to 1 this number is, the more points will be present in the output and the more accurate the graph.
+If no value is provided then all points are considered.}
 
 \item{calculation}{The mathematical calculation performed on the range points within an x variable's concentration.}
-
-\item{methods}{The parameters used must have supported values. Refer to <https://www.gvsu.edu/wri/buoy/data-api.htm>}
 }
 \value{
-A data frame based on the parameters
+A data frame based on the provided parameters.
 }
 \description{
-This function selects obtains Muskegon Lake Buoy Data through API.
+This function obtains Muskegon Lake Buoy Data through Application Programming Interface.
+The data gives the current conditions and historic data from the Muskegon Lake buoy since 2011.
+}
+\note{
+The parameters must use supported values. Refer to <a href="https://www.gvsu.edu/wri/buoy/data-api.htm">GVSU Muskegon Lake Buoy website</a> for more information.
 }
 \author{
-Andrew DiLernia
-Beatrice Ngigi
+* Beatrice Ngigi
+* Andrew DiLernia
 }
