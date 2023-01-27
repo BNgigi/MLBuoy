@@ -5,26 +5,26 @@
 #' @title Extracting Muskegon Lake Buoy Data
 #'
 #' @description This function obtains Muskegon Lake Buoy Data through Application Programming Interface.
-#' The data gives the current conditions and historic data from the Muskegon Lake buoy since 2011.
+#' It gives the current conditions and historic data from the Muskegon Lake buoy since 2011.
 #' @param y At least one y value is required.
 #' Multiple y values should be separated by a comma.
 #' @param x A single x value may be used.
-#' @param date Date values must be in the format MM/DD/YYYY or M/D/YY and can be either ranges separated by hyphens or commas.
+#' @param date Date values must be in the format MM/DD/YYYY or M/D/YY.
 #' If no value is provided then all dates are considered.
-#' @param time Time values must be in the 24-hour format H:MM or HH:MM and can be either ranges separated by hyphens or commas.
+#' @param time Time values must be in the 24-hour format H:MM or HH:MM.
 #' The values must also be divisible by 15 minutes (0:00, 0:15, 0:30, and 0:45).
 #' If no value is provided then all times are considered.
+#' @param calculation The mathematical calculation performed on the range points within an x variable's concentration.
 #' @param concentration A decimal number in the range .01-1.0 which represents the total amount of y plots per x variable.
 #' The closer to 1 this number is, the more points will be present in the output and the more accurate the graph.
 #' If no value is provided then all points are considered.
-#' @param calculation The mathematical calculation performed on the range points within an x variable's concentration.
-#' @note The parameters must use supported values. Refer to <a href="https://www.gvsu.edu/wri/buoy/data-api.htm">GVSU Muskegon Lake Buoy website</a> for more information.
-#'
+#' @details The parameters must use supported values. More information can be found at the GVSU Muskegon Lake Buoy website: \url{https://www.gvsu.edu/wri/buoy/data-api.htm}
 #' @return A data frame based on the provided parameters.
-#'
-#' @example muskegonLakeBuoyData(y="atmp1,tp001,tp002", x="date", date="7/7/11,7/14/11,7/21/11,7/28/11", concentration="1")
+#' @import tidyverse tibble ggplot2
+#' @examples muskegonLakeBuoyData(y="atmp1,tp001,tp002", x="date", date="7/7/11,7/14/11,7/21/11,7/28/11", concentration="1")
 #' @author
 #' * Beatrice Ngigi
+#'
 #' * Andrew DiLernia
 #'
 #'
@@ -32,11 +32,11 @@
 
 
 muskegonLakeBuoyData <- function(y, x=NULL, date = NULL, time = NULL,
-                                 concentration = NULL, calculation = NULL) {
+                                 calculation = NULL, concentration = NULL) {
 
   # Creating a named vector of inputs
   inputs <- c( x = x, y = y, date = date, time = time,
-               concentration = concentration, calculation = calculation)
+               calculation = calculation, concentration = concentration)
 
   # Constructing URL for API query
   baseURL <- "http://www.gvsu.edu/wri/buoy/data-generate.htm?"
