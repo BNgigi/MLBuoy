@@ -16,11 +16,11 @@ Here-below is overview of the main functions:-
 
 ## Installation of the package
 
-### Install the devtools package
-install.packages("devtools")
+    ### Install the devtools package first
+    install.packages("devtools")
 
-### Install the package from GitHub
-devtools::install_github("https://github.com/BNgigi/MLBuoy")
+    ### Then Install the package from GitHub
+    devtools::install_github("https://github.com/BNgigi/MLBuoy")
 
 ## Example
 
