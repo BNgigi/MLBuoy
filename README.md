@@ -19,7 +19,7 @@ Here-below is overview of the main functions:-
     ### Install the devtools package first
     install.packages("devtools")
 
-    ### Then Install the package from GitHub
+    ### Then install MLBuoy package from GitHub as follows
     devtools::install_github("https://github.com/BNgigi/MLBuoy")
 
 ## Example
