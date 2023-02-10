@@ -1,6 +1,8 @@
 #' @import tidyverse
 #' @import tibble
 #' @import ggplot2
+#' @import magrittr
+#' @import dplyr
 
 #' @title Extracting Muskegon Lake Buoy Data
 #'
@@ -28,13 +30,14 @@
 #'
 #' @export
 
-
 muskegonLakeBuoyData <- function(y, x=NULL, date = NULL, time = NULL,
-                                 calculation = NULL, concentration = NULL) {
+                                 calculation = NULL, concentration = NULL,
+                                 start_date = NULL, end_date = NULL) {
 
   # Creating a named vector of inputs
   inputs <- c( x = x, y = y, date = date, time = time,
-               calculation = calculation, concentration = concentration)
+               calculation = calculation, concentration = concentration,
+               start_date = start_date, end_date = end_date)
 
   # Constructing URL for API query
   baseURL <- "http://www.gvsu.edu/wri/buoy/data-generate.htm?"
@@ -42,6 +45,16 @@ muskegonLakeBuoyData <- function(y, x=NULL, date = NULL, time = NULL,
 
   # Fetching data from API
   MLbuoyData <- read.csv(URL)
+
+  # Applying the start and end date filter
+  if (!is.null(start_date) & !is.null(end_date)) {
+    filtered_data <- MLbuoyData[MLbuoyData$date >= start_date & MLbuoyData$date <= end_date, ]
+    if (nrow(filtered_data) == 0) {
+      return(data.frame())
+    } else {
+      MLbuoyData <- filtered_data
+    }
+  }
 
   # Returning the dataframe
   return(MLbuoyData)
@@ -67,11 +80,44 @@ muskegonLakeBuoyData <- function(y, x=NULL, date = NULL, time = NULL,
 #'
 #' @export
 
-muskegonLakeBuoyGraph <- function(x = NULL, y = NULL, graph_type) {
+muskegonLakeBuoyGraph <- function(x = NULL, y = NULL, filter=NULL, graph_type) {
 
   # Calling the muskegonLakeBuoyData function
   mlData <- muskegonLakeBuoyData(x = x, y = y, date = NULL, time = NULL,
                                  concentration = NULL, calculation = NULL)
+
+  if (!is.null(filter)) {
+    mlData <- mlData[mlData[,filter[1]] >= filter[2] & mlData[,filter[1]] <= filter[3], ]
+  }
+
+  if("yearmonth" %in% names(mlData)){
+    mlData <- mlData %>%
+      mutate(yearmonth = case_when(
+        yearmonth == 1 ~ "Jan",
+        yearmonth == 2 ~ "Feb",
+        yearmonth == 3 ~ "March",
+        yearmonth == 4 ~ "April",
+        yearmonth == 5 ~ "May",
+        yearmonth == 6 ~ "June",
+        yearmonth == 7 ~ "July",
+        yearmonth == 8 ~ "Aug",
+        yearmonth == 9 ~ "Sept",
+        yearmonth == 10 ~ "Oct",
+        yearmonth == 11 ~ "Nov",
+        yearmonth == 12 ~ "Dec"))
+  }
+
+  if("weekday" %in% names(mlData)){
+    mlData <- mlData %>%
+      mutate(weekday = case_when(
+        weekday == 1 ~ "Mon",
+        weekday == 2 ~ "Tue",
+        weekday == 3 ~ "Wed",
+        weekday == 4 ~ "Thur",
+        weekday == 5 ~ "Fri",
+        weekday == 6 ~ "Sat",
+        weekday == 7 ~ "Sun"))
+  }
 
   # Creating the arguments for x and y parameters
   y_parameters <- tibble(atmp1 = "Air Temp °F (above surface)",
@@ -175,6 +221,7 @@ muskegonLakeBuoyGraph <- function(x = NULL, y = NULL, graph_type) {
     return(plt)
 
   } else if (graph_type == "line"){
+
     plt <- ggplot(mlData, aes_string(x=paste0('x_',x),
                                      y=paste0('y_',y)))  +
       stat_summary(geom="line", fun=mean, size=1) +

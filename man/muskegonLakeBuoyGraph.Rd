@@ -4,7 +4,7 @@
 \alias{muskegonLakeBuoyGraph}
 \title{Visualizing Muskegon Lake Buoy Data}
 \usage{
-muskegonLakeBuoyGraph(x = NULL, y = NULL, graph_type)
+muskegonLakeBuoyGraph(x = NULL, y = NULL, filter = NULL, graph_type)
 }
 \arguments{
 \item{x}{The values to be plotted on the x-axis of the graph.}

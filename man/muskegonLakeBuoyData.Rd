@@ -10,7 +10,9 @@ muskegonLakeBuoyData(
   date = NULL,
   time = NULL,
   calculation = NULL,
-  concentration = NULL
+  concentration = NULL,
+  start_date = NULL,
+  end_date = NULL
 )
 }
 \arguments{
