@@ -1,0 +1,100 @@
+
+---
+title: "Muskegon Lake Buoy R Package Vignette"
+output:
+  prettydoc::html_pretty:
+    theme: HPSTR
+vignette: >
+  %\VignetteIndexEntry{umapgp-vignette}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+# **Introduction**
+
+The Muskegon Lake Buoy is an important tool for monitoring the conditions of the lake and providing valuable information about the environment. This vignette provides two functions that allow users to easily extract and visualize the data from the Muskegon Lake Buoy through the use of Application Programming Interface (API).
+The first function, muskegonLakeBuoyData, retrieves the data from the API and returns it as a data frame. The second function, muskegonLakeBuoyGraph, takes the data from the first function and creates a visual representation of the data in the form of a graph. The vignette provides a detailed explanation of how to use these functions and the parameters that can be passed to them.
+
+# **Function 1: muskegonLakeBuoyData**
+
+The first function, muskegonLakeBuoyData, is used to retrieve data from the Muskegon Lake Buoy API. It allows the user to retrieve valuable information about the current conditions and historical data of the lake, all through the convenience of an API. The function provides comprehensive understanding of the lake's conditions over time as it grants access to a wealth of data dating back to 2011.
+
+## **Parameters**
+
+The function takes the following parameters:
+
+```{r, echo=FALSE}
+library(knitr)
+kable(
+  data.frame(
+    Variable = c("y", "x", "date", "time", "calculation", "concentration"), 
+    Description = c("A character vector of y values", "A single x value", "A character vector of date values", "A character vector of time values", "A character vector representing a mathematical calculation", "A decimal number"),
+    Supported_Values = c("At least one y value. Multiple y values should be separated by a comma.", "Must be supported.", "MM/DD/YYYY or M/D/YY format. If no value is provided, all dates are considered.", "24-hour format H:MM or HH:MM. Values must be divisible by 15 minutes. If no value is provided, all times are considered.", "Performed on the range points within an x variable's concentration", "Range of 0.01 - 1.0 representing the total amount of y plots per x variable. Closer to 1 means more points and a more accurate graph. If no value is provided, all points are considered.")
+  ), 
+  format = "pandoc"
+)
+```
+
+
+The arguments must use supported values. More information can be found at Grand Valley State University Muskegon Lake Buoy website: https://www.gvsu.edu/wri/buoy/data-api.htm
+
+## **Example**
+
+Here is an example of how to use the muskegonLakeBuoyData function:
+
+```{r, error=TRUE}
+muskegonLakeBuoyData(y="atmp1,tp001,tp002", x="date", date="7/7/11,7/14/11,7/21/11,7/28/11", concentration="1")
+```
+
+In this example, we are retrieving data for the atmp1, tp001, and tp002 y values and plotting them against the date x value. The data is restricted to the dates 7/7/11, 7/14/11, 7/21/11, 7/28/11, and the concentration parameter is set to 1, meaning that all points will be considered.
+
+# **Function 2: muskegonLakeBuoyGraph**
+
+The muskegonLakeBuoyGraph() function is designed to retrieve and display data from the Muskegon Lake Buoy through the use of an Application Programming Interface (API). The function is written using the ggplot2 library, and the raw data can be transformed into an easy-to-read and visually appealing graph, facilitating comprehension and analysis.
+
+## **Parameters**
+
+The function takes the following parameters:
+
+```{r, echo=FALSE}
+library(knitr)
+kable(
+  data.frame(
+    Variable = c("x", "y", "graph_type"), 
+    Description = c("The values to be plotted on the x-axis of the graph.", "The values to be used on the y-axis of the graph. Multiple y values should be separated by a comma.", "The type of chart to be plotted. The supported types are scatter, line, bar, and boxplot.")
+  ), 
+  format = "pandoc"
+)
+```
+
+
+Note: The arguments for x and y must be supported values. For more information, please visit the Grand Valley State University Muskegon Lake Buoy website: https://www.gvsu.edu/wri/buoy/data-api.htm
+
+## **Function Output**
+
+The muskegonLakeBuoyGraph() function returns a graph of x values by y values.
+
+## **Importing Required Libraries**
+
+Before using the muskegonLakeBuoyGraph() function, you must import the following libraries: tidyverse, tibble, and ggplot2.
+
+## **Function Usage**
+
+The following is an example of how to use the muskegonLakeBuoyGraph() function:
+
+```{r, error=TRUE, message=TRUE, warning=TRUE}
+muskegonLakeBuoyGraph(x="weekday",y="rh1", graph_type="line")
+```
+
+# **Package Development**
+
+The muskegonLakeBuoyGraph() function was developed by Beatrice Ngigi and Prof. Andrew DiLernia.
+
+
