@@ -1,13 +1,10 @@
 #' @import tidyverse
-#' @import tibble
-#' @import ggplot2
-#' @import magrittr
-#' @import dplyr
 
-#' @title Extracting Muskegon Lake Buoy Data
+#' @title Fetch Muskegon Lake Buoy Data
 #'
-#' @description This function is a handy tool that allows the user to retrieve valuable information about the current conditions and historical data of the Muskegon Lake buoy, all through the convenience of an Application Programming Interface.
-#' It provides comprehensive understanding of the lake's conditions over time as it grants access to a wealth of data dating back to 2011.
+#' @description This function fetches data on current and historical conditions of Muskegon Lake in Muskegon County, Michigan from the Muskegon Lake Buoy API. API documentation is available at \url{https://www.gvsu.edu/wri/buoy/data-api.htm}
+#'
+#' Grand Valley State University's Robert B. Annis Water Resources Institute (AWRI) established a buoy-based observatory in Muskegon Lake in 2010, and the earliest data available from the API is in 2011. More information on the Muskegon Lake Buoy is available on the AWRI website: \url{https://www.gvsu.edu/wri/buoy/}
 #' @param y At least one y value is required.
 #' Multiple y values should be separated by a comma.
 #' @param x A single x value may be used.
@@ -20,22 +17,21 @@
 #' @param concentration A decimal number in the range .01-1.0 which represents the total amount of y plots per x variable.
 #' The closer to 1 this number is, the more points will be present in the output and the more accurate the graph.
 #' If no value is provided then all points are considered.
-#' @details The arguments must use supported values. More information can be found at Grand Valley State University Muskegon Lake Buoy website: \url{https://www.gvsu.edu/wri/buoy/data-api.htm}
 #' @return A data frame based on the provided parameters.
 #' @import tidyverse tibble ggplot2
-#' @examples muskegonLakeBuoyData(y="atmp1,tp001,tp002", x="date", date="7/7/11,7/14/11,7/21/11,7/28/11", concentration="1")
+#' @examples fetch_buoy_data(y="atmp1,tp001,tp002", x="date", date="7/7/11,7/14/11,7/21/11,7/28/11", concentration="1")
 #' @author Beatrice Ngigi
 #' @author Andrew DiLernia
 #'
 #'
 #' @export
 
-muskegonLakeBuoyData <- function(y, x=NULL, date = NULL, time = NULL,
+fetch_buoy_data <- function(y, x=NULL, date = NULL, time = NULL,
                                  calculation = NULL, concentration = NULL,
                                  start_date = NULL, end_date = NULL) {
 
   # Creating a named vector of inputs
-  inputs <- c( x = x, y = y, date = date, time = time,
+  inputs <- c(x = x, y = y, date = date, time = time,
                calculation = calculation, concentration = concentration,
                start_date = start_date, end_date = end_date)
 
@@ -56,12 +52,11 @@ muskegonLakeBuoyData <- function(y, x=NULL, date = NULL, time = NULL,
     }
   }
 
-  # Returning the dataframe
   return(MLbuoyData)
 }
 
 
-#' @title Visualizing Muskegon Lake Buoy Data
+#' @title Plot Muskegon Lake Buoy Data
 #'
 #' @description This function offers a simple method to retrieve and display data from the Muskegon Lake Buoy through the use of Application Programming Interface.
 #' The raw data is transformed into an easy-to-read and visually appealing graph, facilitating comprehension and analysis.
@@ -73,17 +68,17 @@ muskegonLakeBuoyData <- function(y, x=NULL, date = NULL, time = NULL,
 #' @details The arguments for x and y must be supported values. More information can be found at Grand Valley State University Muskegon Lake Buoy website: \url{https://www.gvsu.edu/wri/buoy/data-api.htm}
 #' @return A graph of x values by y values
 #' @import tidyverse tibble ggplot2
-#' @examples muskegonLakeBuoyGraph(x="weekday",y="rh1", graph_type="line")
+#' @examples plot_buoy_data(x="weekday",y="rh1", graph_type="line")
 #' @author Beatrice Ngigi
 #' @author Andrew DiLernia
 #'
 #'
 #' @export
 
-muskegonLakeBuoyGraph <- function(x = NULL, y = NULL, filter=NULL, graph_type) {
+plot_buoy_data <- function(x = NULL, y = NULL, filter=NULL, graph_type) {
 
-  # Calling the muskegonLakeBuoyData function
-  mlData <- muskegonLakeBuoyData(x = x, y = y, date = NULL, time = NULL,
+  # Fetching data
+  mlData <- fetch_buoy_data(x = x, y = y, date = NULL, time = NULL,
                                  concentration = NULL, calculation = NULL)
 
   if (!is.null(filter)) {
@@ -92,7 +87,7 @@ muskegonLakeBuoyGraph <- function(x = NULL, y = NULL, filter=NULL, graph_type) {
 
   if("yearmonth" %in% names(mlData)){
     mlData <- mlData %>%
-      mutate(yearmonth = case_when(
+      dplyr::mutate(yearmonth = case_when(
         yearmonth == 1 ~ "Jan",
         yearmonth == 2 ~ "Feb",
         yearmonth == 3 ~ "March",
@@ -262,7 +257,6 @@ muskegonLakeBuoyGraph <- function(x = NULL, y = NULL, filter=NULL, graph_type) {
             plot.title=element_text(hjust=0.50))
 
     return(plt)
-
   }
 }
 
