@@ -15,9 +15,13 @@ Here-below is overview of the main functions:-
 | muskegonLakeBuoyGraph | Obtains data and creates a visual representation of the data in the form of a graph |
 
 ## Installation of the package
- library(devtools)
- install_github("https://github.com/BNgigi/MLBuoy")
- library(MLBuoy)
+
+### Install the devtools package
+install.packages("devtools")
+
+### Install the package from GitHub
+devtools::install_github("https://github.com/BNgigi/MLBuoy")
 
 ## Example
-For a detailed description for implementing the MLBuoy Package, see this [Package Vignette](https://bngigi.github.io/UMAPgp-R-Package/articles/umapgp-vignette.html).
+
+For a detailed description for implementing the MLBuoy Package, see this [Package Vignette](https://github.com/BNgigi/MLBuoy/blob/main/vignette/MLBuoy---Vignette.Rmd).
