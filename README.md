@@ -12,7 +12,7 @@ Here-below is overview of the main functions:-
 | Function | Description |
 |----------|----------|
 | muskegonLakeBuoyData | Retrieves the data from the API and returns it as a data frame |
-| muskegonLakeBuoyGraph | Obtains data and creates a visual representation of the data in the form of a graph |
+| muskegonLakeBuoyGraph | Obtains data and creates a its visual representation in the form of a graph |
 
 ## Installation of the package
 
