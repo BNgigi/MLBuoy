@@ -4,7 +4,7 @@ Muskegon Lake Buoy
 
 ## Introduction
 
-The Muskegon Lake Buoy is an important tool for monitoring the conditions of the lake and providing valuable information about the environment. MLBuoy R Package provides two functions that allow users to easily extract and visualize the data from the Muskegon Lake Buoy through the use of Application Programming Interface (API).
+The Muskegon Lake Buoy is an important tool for monitoring the conditions of Muskegon Lake and providing valuable information about the environment. The MLBuoy R Package provides functions that facilitate queries from the Muskegon Lake Buoy API directly from within R and create related visualizations as well.
 
 ## Description
 Here-below is overview of the main functions:-
