@@ -28,12 +28,13 @@
 #
 #' @export
 
-fetch_buoy_data <- function(y, x = "date", date = NULL, time = NULL,
+
+fetch_buoy_data <- function(y, x = "date", time = NULL,
                             calculation = NULL, concentration = NULL,
-                            start_date = "1/1/18", end_date = "2/13/23") {
+                            start_date = "2023-01-01", end_date = "2023-01-31") {
 
   # Creating a named vector of inputs
-  inputs <- c(x = x, y = y, date = date, time = time,
+  inputs <- c(y = y, x = x, time = time,
               calculation = calculation, concentration = concentration,
               start_date = start_date, end_date = end_date)
 
@@ -41,18 +42,15 @@ fetch_buoy_data <- function(y, x = "date", date = NULL, time = NULL,
   baseURL <- "http://www.gvsu.edu/wri/buoy/data-generate.htm?"
   URL <- paste0(baseURL, paste(paste0(names(inputs), "=", inputs), collapse = "&"), "&format=csv")
 
-  # Only include start_date and end_date parameters if both are provided
-  if (!is.null(start_date) & !is.null(end_date)) {
-    URL <- paste0(URL, "&start_date=", start_date, "&end_date=", end_date)
-  }
-
   # Fetching data from API
   MLbuoyData <- read.csv(URL)
 
-  return(MLbuoyData)
+  # Extracting the datetime from the "date" column and adding it as a separate column
+  MLbuoyData <- MLbuoyData %>%
+    mutate(datetime = as.POSIXct(date, format = "%Y-%m-%d %H:%M:%S")) %>%
+    filter(datetime >= start_date & datetime <= end_date) %>%
+    mutate(date = format(datetime, "%m/%d/%Y"))
 }
-
-
 
 
 
@@ -85,39 +83,38 @@ plot_buoy_data <- function(x = "date", y = NULL, filter=NULL, graph_type) {
     mlData <- mlData[mlData[,filter[1]] >= filter[2] & mlData[,filter[1]] <= filter[3], ]
   }
 
-  if("yearmonth" %in% names(mlData)){
+  if("x_yearmonth" %in% names(mlData)){
     mlData <- mlData %>%
-      dplyr::mutate(yearmonth = case_when(
-        yearmonth == 1 ~ "Jan",
-        yearmonth == 2 ~ "Feb",
-        yearmonth == 3 ~ "March",
-        yearmonth == 4 ~ "April",
-        yearmonth == 5 ~ "May",
-        yearmonth == 6 ~ "June",
-        yearmonth == 7 ~ "July",
-        yearmonth == 8 ~ "Aug",
-        yearmonth == 9 ~ "Sept",
-        yearmonth == 10 ~ "Oct",
-        yearmonth == 11 ~ "Nov",
-        yearmonth == 12 ~ "Dec"))
+      dplyr::mutate(x_yearmonth = case_when(
+        x_yearmonth == 1 ~ "Jan",
+        x_yearmonth == 2 ~ "Feb",
+        x_yearmonth == 3 ~ "March",
+        x_yearmonth == 4 ~ "April",
+        x_yearmonth == 5 ~ "May",
+        x_yearmonth == 6 ~ "June",
+        x_yearmonth == 7 ~ "July",
+        x_yearmonth == 8 ~ "Aug",
+        x_yearmonth == 9 ~ "Sept",
+        x_yearmonth == 10 ~ "Oct",
+        x_yearmonth == 11 ~ "Nov",
+        x_yearmonth == 12 ~ "Dec"))
   }
 
-  if("X_weekday" %in% names(mlData)){
+  if("x_weekday" %in% names(mlData)){
     mlData <- mlData %>%
-      mutate(x_weekday = case_when(
-        weekday == 1 ~ "Mon",
-        weekday == 2 ~ "Tue",
-        weekday == 3 ~ "Wed",
-        weekday == 4 ~ "Thur",
-        weekday == 5 ~ "Fri",
-        weekday == 6 ~ "Sat",
-        weekday == 7 ~ "Sun"))
+      dplyr::mutate(x_weekday = case_when(
+        x_weekday == 1 ~ "Mon",
+        x_weekday == 2 ~ "Tue",
+        x_weekday == 3 ~ "Wed",
+        x_weekday == 4 ~ "Thur",
+        x_weekday == 5 ~ "Fri",
+        x_weekday == 6 ~ "Sat",
+        x_weekday == 7 ~ "Sun"))
   }
 
   # Creating the arguments for x and y parameters
   parameters <- tibble(atmp1 = "Air Temp °F (above surface)",
                        atmp1max = "Maximum Air Temperature (Long term since 2011) °F (above surface)",
-                       atmp1 = "Air Temp °F (above surface)",
                        atmp1min = "Minimum Air Temperature (Long term since 2011) °F (above surface)",
                        baro1 = "Relative Barometric Pressure in Hg (above surface)",
                        cdom001 = "CDOM µg/L (2m)",
