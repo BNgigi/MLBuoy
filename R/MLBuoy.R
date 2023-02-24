@@ -5,11 +5,11 @@
 #' @description This function fetches data on current and historical conditions of Muskegon Lake in Muskegon County, Michigan from the Muskegon Lake Buoy API. API documentation is available at \url{https://www.gvsu.edu/wri/buoy/data-api.htm}
 #'
 #' Grand Valley State University's Robert B. Annis Water Resources Institute (AWRI) established a buoy-based observatory in Muskegon Lake in 2010, and the earliest data available from the API is in 2011. More information on the Muskegon Lake Buoy is available on the AWRI website: \url{https://www.gvsu.edu/wri/buoy/}
+#' @param x A single x value may be used. If no value is specified, the date will be used as the default.
 #' @param y At least one y value is required.
 #' Multiple y values should be separated by a comma.
-#' @param x A single x value may be used. If no value is specified, the date will be used as the default.
 #' @param date Date values must be in the format MM/DD/YYYY or M/D/YY.
-#' If no value is provided then all dates are considered.
+#' If no value is provided then the default is "01/01/2023 - 01/31/2023" which represents a range of dates from January 1, 2023, to January 31, 2023. The first date (01/01/2023) represents the start date, and the second date (01/31/2023) represents the end date.
 #' @param time Time values must be in the 24-hour format H:MM or HH:MM.
 #' The values must also be divisible by 15 minutes (0:00, 0:15, 0:30, and 0:45).
 #' If no value is provided then all times are considered.
@@ -17,21 +17,17 @@
 #' @param concentration A decimal number in the range .01-1.0 which represents the total amount of y plots per x variable.
 #' The closer to 1 this number is, the more points will be present in the output and the more accurate the graph.
 #' If no value is provided then all points are considered.
-#' @param start_date: Optional argument with a default value of "1/1/18", representing the earliest date to retrieve data for.
-#' @param end_date: Optional argument with a default value of "2/13/23", representing the latest date to retrieve data for.
 #' @return A data frame based on the provided parameters.
 #' @import tidyverse
 #' @examples fetch_buoy_data(y="atmp1,tp001,tp002", x="date", date="7/7/11,7/14/11,7/21/11,7/28/11", concentration="1")
 #' @author Beatrice Ngigi
 #' @author Andrew DiLernia
 #'
-#
 #' @export
 
 
-fetch_buoy_data <- function(y, x = "date", time = NULL,
-                            calculation = NULL, concentration = NULL,
-                            start_date = "2023-01-01", end_date = "2023-01-31") {
+fetch_buoy_data <- function(x = "date", y, date = "01/01/2023 - 01/31/2023", time = NULL,
+                            calculation = NULL, concentration = NULL) {
 
   # Creating a named vector of inputs
   inputs <- c(y = y, x = x, time = time,
@@ -45,11 +41,8 @@ fetch_buoy_data <- function(y, x = "date", time = NULL,
   # Fetching data from API
   MLbuoyData <- read.csv(URL)
 
-  # Extracting the datetime from the "date" column and adding it as a separate column
-  MLbuoyData <- MLbuoyData %>%
-    mutate(datetime = as.POSIXct(date, format = "%Y-%m-%d %H:%M:%S")) %>%
-    filter(datetime >= start_date & datetime <= end_date) %>%
-    mutate(date = format(datetime, "%m/%d/%Y"))
+
+  return(MLbuoyData)
 }
 
 
@@ -61,6 +54,8 @@ fetch_buoy_data <- function(y, x = "date", time = NULL,
 #' @param x The values to be plotted on the x-axis of the graph. If no value is specified, the date will be used as the default.
 #' @param y The values to be used on the y-axis of the graph.
 #' Multiple y values should be separated by a comma.
+#' @param date Date values must be in the format MM/DD/YYYY or M/D/YY.
+#' If no value is provided then the default is "01/01/2023 - 01/31/2023" which represents a range of dates from January 1, 2023, to January 31, 2023. The first date (01/01/2023) represents the start date, and the second date (01/31/2023) represents the end date.
 #' @param graph_type The type of chart to be plotted.
 #' The supported types are scatter, line, bar, and boxplot.
 #' @details The arguments for x and y must be supported values. More information can be found at Grand Valley State University Muskegon Lake Buoy website: \url{https://www.gvsu.edu/wri/buoy/data-api.htm}
@@ -73,15 +68,11 @@ fetch_buoy_data <- function(y, x = "date", time = NULL,
 #'
 #' @export
 
-plot_buoy_data <- function(x = "date", y = NULL, filter=NULL, graph_type) {
+plot_buoy_data <- function(x = "date", y = NULL, date = "01/01/2023 - 01/31/2023", graph_type) {
 
   # Fetching data
-  mlData <- fetch_buoy_data(x = x, y = y, date = NULL, time = NULL,
-                                 concentration = NULL, calculation = NULL)
-
-  if (!is.null(filter)) {
-    mlData <- mlData[mlData[,filter[1]] >= filter[2] & mlData[,filter[1]] <= filter[3], ]
-  }
+  mlData <- fetch_buoy_data(x = "date", y = NULL, date = "01/01/2023 - 01/31/2023", time = NULL,
+                            calculation = NULL, concentration = NULL)
 
   if("x_yearmonth" %in% names(mlData)){
     mlData <- mlData %>%
