@@ -24,10 +24,14 @@
 #' @author Andrew DiLernia
 #'
 #' @export
-
-
-fetch_buoy_data <- function(x = "date", y, date = "01/01/2023 - 01/31/2023", time = NULL,
+fetch_buoy_data <- function(x = "date", y,
+                            start_date = "1/01/2023",
+                            end_date = "1/31/2023",
+                            time = NULL,
                             calculation = NULL, concentration = NULL) {
+
+  # Constructing date from start_date & end_date
+  date <- paste0(start_date, "-", end_date)
 
   # Creating a named vector of inputs
   inputs <- c(y = y, x = x, time = time,
@@ -67,8 +71,12 @@ fetch_buoy_data <- function(x = "date", y, date = "01/01/2023 - 01/31/2023", tim
 #'
 #'
 #' @export
+plot_buoy_data <- function(x = "date", y = NULL,
+                           start_date = "1/01/2023",
+                           end_date = "1/31/2023", graph_type) {
 
-plot_buoy_data <- function(x = "date", y = NULL, date = "01/01/2023 - 01/31/2023", graph_type) {
+  # Constructing date from start_date & end_date
+  date <- paste0(start_date, "-", end_date)
 
   # Fetching data
   mlData <- fetch_buoy_data(x = "date", y = NULL, date = "01/01/2023 - 01/31/2023", time = NULL,
