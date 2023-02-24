@@ -19,10 +19,10 @@ knitr::opts_chunk$set(
 
 # **Introduction**
 
-MLBuoy is an important tool for monitoring the conditions of the lake and providing valuable information about the environment. This vignette provides two functions that allow users to easily extract and visualize the data from the Muskegon Lake Buoy through the use of Application Programming Interface (API).
-The first function, fetch_buoy_data, retrieves the data from the API and returns it as a data frame. The second function, plot_buoy_data, takes the data from the first function and creates a visual representation of the data in the form of a graph. The vignette provides a detailed explanation of how to use these functions and the parameters that can be passed to them.
+Muskegon Lake Buoy (MLBuoy) is an important tool for monitoring the conditions of the lake and providing valuable information about the environment. This vignette provides two functions that allow users to easily extract and visualize the data from the Muskegon Lake Buoy through the use of Application Programming Interface (API).
+The first function, Fetch Muskegon Lake Buoy Data, retrieves the data from the API and returns it as a data frame. The second function, plot_buoy_data, takes the data from the first function and creates a visual representation of the data in the form of a graph. The vignette provides a detailed explanation of how to use these functions and the parameters that can be passed to them.
 
-# **Function 1: fetch_buoy_data**
+# **Function 1: Fetch Muskegon Lake Buoy Data**
 
 The first function, fetch_buoy_data, is used to retrieve data from the Muskegon Lake Buoy API. It allows the user to retrieve valuable information about the current conditions and historical data of the lake, all through the convenience of an API. The function provides comprehensive understanding of the lake's conditions over time as it grants access to a wealth of data dating back to 2011.
 
@@ -34,9 +34,9 @@ The function takes the following parameters:
 library(knitr)
 kable(
   data.frame(
-    Variable = c("y", "x", "date", "time", "calculation", "concentration"), 
-    Description = c("A character vector of y values", "A single x value", "A character vector of date values", "A character vector of time values", "A character vector representing a mathematical calculation", "A decimal number"),
-    Supported_Values = c("At least one y value. Multiple y values should be separated by a comma.", "Must be supported.", "MM/DD/YYYY or M/D/YY format. If no value is provided, all dates are considered.", "24-hour format H:MM or HH:MM. Values must be divisible by 15 minutes. If no value is provided, all times are considered.", "Performed on the range points within an x variable's concentration", "Range of 0.01 - 1.0 representing the total amount of y plots per x variable. Closer to 1 means more points and a more accurate graph. If no value is provided, all points are considered.")
+    Variable = c("x", "y", "date", "time", "calculation", "concentration"), 
+    Description = c("A single x value", "A character vector of y values","A character vector of date values", "A character vector of time values", "A character vector representing a mathematical calculation", "A decimal number"),
+    Supported_Values = c("Must be supported. The default value is date","At least one y value. Multiple y values should be separated by a comma.", "MM/DD/YYYY or M/D/YY format. If no value is provided, the default is 01/01/2023 - 01/31/2023","24-hour format H:MM or HH:MM. Values must be divisible by 15 minutes. If no value is provided, all times are considered.", "Performed on the range points within an x variable's concentration", "Range of 0.01 - 1.0 representing the total amount of y plots per x variable. Closer to 1 means more points and a more accurate graph. If no value is provided, all points are considered.")
   ), 
   format = "pandoc"
 )
@@ -47,7 +47,7 @@ The arguments must use supported values. More information can be found at Grand 
 
 ## **Example**
 
-Here is an example of how to use the muskegonLakeBuoyData function:
+Here is an example of how to use the Fetch Muskegon Lake Buoy Data function:
 
 ```{r, error=TRUE}
 fetch_buoy_data(y="atmp1,tp001,tp002", x="date", date="7/7/11,7/14/11,7/21/11,7/28/11", concentration="1")
@@ -55,7 +55,7 @@ fetch_buoy_data(y="atmp1,tp001,tp002", x="date", date="7/7/11,7/14/11,7/21/11,7/
 
 In this example, we are retrieving data for the atmp1, tp001, and tp002 y values and plotting them against the date x value. The data is restricted to the dates 7/7/11, 7/14/11, 7/21/11, 7/28/11, and the concentration parameter is set to 1, meaning that all points will be considered.
 
-# **Function 2: plot_buoy_data**
+# **Function 2: Plot Muskegon Lake Buoy Data**
 
 The plot_buoy_data function is designed to retrieve and display data from the Muskegon Lake Buoy through the use of an Application Programming Interface (API). The function is written using the ggplot2 library, and the raw data can be transformed into an easy-to-read and visually appealing graph, facilitating comprehension and analysis.
 
@@ -67,8 +67,8 @@ The function takes the following parameters:
 library(knitr)
 kable(
   data.frame(
-    Variable = c("x", "y", "graph_type"), 
-    Description = c("The values to be plotted on the x-axis of the graph.", "The values to be used on the y-axis of the graph. Multiple y values should be separated by a comma.", "The type of chart to be plotted. The supported types are scatter, line, bar, and boxplot.")
+    Variable = c("x", "y", "date", "graph_type"), 
+    Description = c("The values to be plotted on the x-axis of the graph. The default value is date.", "The values to be used on the y-axis of the graph. Multiple y values should be separated by a comma.", "Date values must be in the format MM/DD/YYYY or M/D/YY. If no value is provided then the default is 01/01/2023 - 01/31/2023", "The type of chart to be plotted. The supported types are scatter, line, bar, and boxplot.")
   ), 
   format = "pandoc"
 )
