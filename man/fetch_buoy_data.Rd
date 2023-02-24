@@ -6,23 +6,19 @@
 \usage{
 fetch_buoy_data(
   y,
-  x = NULL,
-  date = NULL,
+  x = "date",
   time = NULL,
   calculation = NULL,
   concentration = NULL,
-  start_date = NULL,
-  end_date = NULL
+  start_date = "2023-01-01",
+  end_date = "2023-01-31"
 )
 }
 \arguments{
 \item{y}{At least one y value is required.
 Multiple y values should be separated by a comma.}
 
-\item{x}{A single x value may be used.}
-
-\item{date}{Date values must be in the format MM/DD/YYYY or M/D/YY.
-If no value is provided then all dates are considered.}
+\item{x}{A single x value may be used. If no value is specified, the date will be used as the default.}
 
 \item{time}{Time values must be in the 24-hour format H:MM or HH:MM.
 The values must also be divisible by 15 minutes (0:00, 0:15, 0:30, and 0:45).
@@ -33,6 +29,13 @@ If no value is provided then all times are considered.}
 \item{concentration}{A decimal number in the range .01-1.0 which represents the total amount of y plots per x variable.
 The closer to 1 this number is, the more points will be present in the output and the more accurate the graph.
 If no value is provided then all points are considered.}
+
+\item{date}{Date values must be in the format MM/DD/YYYY or M/D/YY.
+If no value is provided then all dates are considered.}
+
+\item{start_date:}{Optional argument with a default value of "1/1/18", representing the earliest date to retrieve data for.}
+
+\item{end_date:}{Optional argument with a default value of "2/13/23", representing the latest date to retrieve data for.}
 }
 \value{
 A data frame based on the provided parameters.

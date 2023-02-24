@@ -2,6 +2,4 @@
 
 export(fetch_buoy_data)
 export(plot_buoy_data)
-import(ggplot2)
-import(tibble)
 import(tidyverse)

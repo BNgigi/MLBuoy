@@ -4,10 +4,10 @@
 \alias{plot_buoy_data}
 \title{Plot Muskegon Lake Buoy Data}
 \usage{
-plot_buoy_data(x = NULL, y = NULL, filter = NULL, graph_type)
+plot_buoy_data(x = "date", y = NULL, filter = NULL, graph_type)
 }
 \arguments{
-\item{x}{The values to be plotted on the x-axis of the graph.}
+\item{x}{The values to be plotted on the x-axis of the graph. If no value is specified, the date will be used as the default.}
 
 \item{y}{The values to be used on the y-axis of the graph.
 Multiple y values should be separated by a comma.}

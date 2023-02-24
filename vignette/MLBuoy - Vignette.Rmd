@@ -1,11 +1,11 @@
 
 ---
-title: "Muskegon Lake Buoy R Package Vignette"
+title: "MLBuoy R Package Vignette"
 output:
   prettydoc::html_pretty:
     theme: HPSTR
 vignette: >
-  %\VignetteIndexEntry{umapgp-vignette}
+  %\VignetteIndexEntry{MLBuoy-vignette}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -19,12 +19,12 @@ knitr::opts_chunk$set(
 
 # **Introduction**
 
-The Muskegon Lake Buoy is an important tool for monitoring the conditions of the lake and providing valuable information about the environment. This vignette provides two functions that allow users to easily extract and visualize the data from the Muskegon Lake Buoy through the use of Application Programming Interface (API).
-The first function, muskegonLakeBuoyData, retrieves the data from the API and returns it as a data frame. The second function, muskegonLakeBuoyGraph, takes the data from the first function and creates a visual representation of the data in the form of a graph. The vignette provides a detailed explanation of how to use these functions and the parameters that can be passed to them.
+MLBuoy is an important tool for monitoring the conditions of the lake and providing valuable information about the environment. This vignette provides two functions that allow users to easily extract and visualize the data from the Muskegon Lake Buoy through the use of Application Programming Interface (API).
+The first function, fetch_buoy_data, retrieves the data from the API and returns it as a data frame. The second function, plot_buoy_data, takes the data from the first function and creates a visual representation of the data in the form of a graph. The vignette provides a detailed explanation of how to use these functions and the parameters that can be passed to them.
 
-# **Function 1: muskegonLakeBuoyData**
+# **Function 1: fetch_buoy_data**
 
-The first function, muskegonLakeBuoyData, is used to retrieve data from the Muskegon Lake Buoy API. It allows the user to retrieve valuable information about the current conditions and historical data of the lake, all through the convenience of an API. The function provides comprehensive understanding of the lake's conditions over time as it grants access to a wealth of data dating back to 2011.
+The first function, fetch_buoy_data, is used to retrieve data from the Muskegon Lake Buoy API. It allows the user to retrieve valuable information about the current conditions and historical data of the lake, all through the convenience of an API. The function provides comprehensive understanding of the lake's conditions over time as it grants access to a wealth of data dating back to 2011.
 
 ## **Parameters**
 
@@ -50,14 +50,14 @@ The arguments must use supported values. More information can be found at Grand 
 Here is an example of how to use the muskegonLakeBuoyData function:
 
 ```{r, error=TRUE}
-muskegonLakeBuoyData(y="atmp1,tp001,tp002", x="date", date="7/7/11,7/14/11,7/21/11,7/28/11", concentration="1")
+fetch_buoy_data(y="atmp1,tp001,tp002", x="date", date="7/7/11,7/14/11,7/21/11,7/28/11", concentration="1")
 ```
 
 In this example, we are retrieving data for the atmp1, tp001, and tp002 y values and plotting them against the date x value. The data is restricted to the dates 7/7/11, 7/14/11, 7/21/11, 7/28/11, and the concentration parameter is set to 1, meaning that all points will be considered.
 
-# **Function 2: muskegonLakeBuoyGraph**
+# **Function 2: plot_buoy_data**
 
-The muskegonLakeBuoyGraph() function is designed to retrieve and display data from the Muskegon Lake Buoy through the use of an Application Programming Interface (API). The function is written using the ggplot2 library, and the raw data can be transformed into an easy-to-read and visually appealing graph, facilitating comprehension and analysis.
+The plot_buoy_data function is designed to retrieve and display data from the Muskegon Lake Buoy through the use of an Application Programming Interface (API). The function is written using the ggplot2 library, and the raw data can be transformed into an easy-to-read and visually appealing graph, facilitating comprehension and analysis.
 
 ## **Parameters**
 
@@ -79,22 +79,22 @@ Note: The arguments for x and y must be supported values. For more information, 
 
 ## **Function Output**
 
-The muskegonLakeBuoyGraph() function returns a graph of x values by y values.
+The fetch_buoy_data function returns a graph of x values by y values.
 
 ## **Importing Required Libraries**
 
-Before using the muskegonLakeBuoyGraph() function, you must import the following libraries: tidyverse, tibble, and ggplot2.
+Before using the fetch_buoy_data  function, you must import the following the tidyverse library.
 
 ## **Function Usage**
 
-The following is an example of how to use the muskegonLakeBuoyGraph() function:
+The following is an example of how to use the fetch_buoy_data function:
 
 ```{r, error=TRUE, message=TRUE, warning=TRUE}
-muskegonLakeBuoyGraph(x="weekday",y="rh1", graph_type="line")
+fetch_buoy_data (x="weekday",y="rh1", graph_type="line")
 ```
 
 # **Package Development**
 
-The muskegonLakeBuoyGraph() function was developed by Beatrice Ngigi and Prof. Andrew DiLernia.
+The fetch_buoy_data function was developed by Beatrice Ngigi and Prof. Andrew DiLernia.
 
 
