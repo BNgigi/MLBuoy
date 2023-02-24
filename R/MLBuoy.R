@@ -83,8 +83,7 @@ plot_buoy_data <- function(x = "date", y = NULL,
                             calculation = NULL, concentration = NULL)
 
   if("x_yearmonth" %in% names(mlData)){
-    mlData <- mlData %>%
-      dplyr::mutate(x_yearmonth = case_when(
+    mlData <- dplyr::mutate(mlData, x_yearmonth = case_when(
         x_yearmonth == 1 ~ "Jan",
         x_yearmonth == 2 ~ "Feb",
         x_yearmonth == 3 ~ "March",
@@ -101,7 +100,7 @@ plot_buoy_data <- function(x = "date", y = NULL,
 
   if("x_weekday" %in% names(mlData)){
     mlData <- mlData %>%
-      dplyr::mutate(x_weekday = case_when(
+      dplyr::mutate(x_weekday = dplyr::case_when(
         x_weekday == 1 ~ "Mon",
         x_weekday == 2 ~ "Tue",
         x_weekday == 3 ~ "Wed",
@@ -163,8 +162,8 @@ plot_buoy_data <- function(x = "date", y = NULL,
   y_val <- parameters[[y]]
 
   if(graph_type == "scatter"){
-    plt <- ggplot(mlData, aes_string(x=paste0('x_',x),
-                                     y=paste0('y_',y))) +
+    plt <- ggplot(mlData, aes_(x=as.name(paste0('x_',x)),
+                                     y=as.name(paste0('y_',y)))) +
       geom_point() +
       geom_smooth(se=FALSE, method="lm", size=1) +
       ggtitle(paste('Scatter plot of', x_val, 'by', y_val )) +
