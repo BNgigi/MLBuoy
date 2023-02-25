@@ -2,41 +2,42 @@
 
 #' @title Fetch Muskegon Lake Buoy Data
 #'
-#' @description This function fetches data on current and historical conditions of Muskegon Lake in Muskegon County, Michigan from the Muskegon Lake Buoy API. API documentation is available at \url{https://www.gvsu.edu/wri/buoy/data-api.htm}
-#'
-#' Grand Valley State University's Robert B. Annis Water Resources Institute (AWRI) established a buoy-based observatory in Muskegon Lake in 2010, and the earliest data available from the API is in 2011. More information on the Muskegon Lake Buoy is available on the AWRI website: \url{https://www.gvsu.edu/wri/buoy/}
-#' @param x A single x value may be used. If no value is specified, the date will be used as the default.
+#' @description This function fetches data on current and historical conditions of Muskegon Lake in Muskegon County, Michigan from the Muskegon Lake Buoy API.
+#' Grand Valley State University's Robert B. Annis Water Resources Institute (AWRI) established the buoy-based observatory in 2010. More information on the Muskegon Lake Buoy is available on the AWRI website: \url{https://www.gvsu.edu/wri/buoy/}.
+#' The API documentation is available at \url{https://www.gvsu.edu/wri/buoy/data-api.htm}.
+#' @param x A single x value may be used.
+#' If no value is specified, date will be used as the default.
 #' @param y At least one y value is required.
 #' Multiple y values should be separated by a comma.
-#' @param date Date values must be in the format MM/DD/YYYY or M/D/YY.
-#' If no value is provided then the default is "01/01/2023 - 01/31/2023" which represents a range of dates from January 1, 2023, to January 31, 2023. The first date (01/01/2023) represents the start date, and the second date (01/31/2023) represents the end date.
+#' @param start_date A specific date in time that marks the beginning of a particular period.
+#' Date values must be in the format MM/DD/YYYY or M/D/YY.
+#' The default value is 10/01/2022.
+#' @param end_date A specific date in time that marks the end of a particular period.
+#' Values must be in the format MM/DD/YYYY or M/D/YY.
+#' The default date is 10/31/2022.
 #' @param time Time values must be in the 24-hour format H:MM or HH:MM.
 #' The values must also be divisible by 15 minutes (0:00, 0:15, 0:30, and 0:45).
 #' If no value is provided then all times are considered.
 #' @param calculation The mathematical calculation performed on the range points within an x variable's concentration.
-#' @param concentration A decimal number in the range .01-1.0 which represents the total amount of y plots per x variable.
-#' The closer to 1 this number is, the more points will be present in the output and the more accurate the graph.
-#' If no value is provided then all points are considered.
+#' @details The arguments for x and y must be supported values. More information can be found at Grand Valley State University Muskegon Lake Buoy API website: \url{https://www.gvsu.edu/wri/buoy/data-api.htm}
 #' @return A data frame based on the provided parameters.
-#' @import tidyverse
-#' @examples fetch_buoy_data(y="atmp1,tp001,tp002", x="date", date="7/7/11,7/14/11,7/21/11,7/28/11", concentration="1")
+#' @examples fetch_buoy_data(x="weekday",y="atmp1,tp001,tp002", start_date="7/7/11", end_date="7/28/11")
 #' @author Beatrice Ngigi
-#' @author Andrew DiLernia
-#'
+#' @author Prof. Andrew DiLernia
 #' @export
-fetch_buoy_data <- function(x = "date", y,
-                            start_date = "1/01/2023",
-                            end_date = "1/31/2023",
+
+fetch_buoy_data <- function(x = "date",
+                            y,
+                            start_date = "10/01/2022",
+                            end_date = "10/31/2022",
                             time = NULL,
-                            calculation = NULL, concentration = NULL) {
+                            calculation = NULL) {
 
   # Constructing date from start_date & end_date
   date <- paste0(start_date, "-", end_date)
 
   # Creating a named vector of inputs
-  inputs <- c(y = y, x = x, time = time,
-              calculation = calculation, concentration = concentration,
-              start_date = start_date, end_date = end_date)
+  inputs <- c(x = x, y = y, date = date, time = time, calculation = calculation)
 
   # Constructing URL for API query
   baseURL <- "http://www.gvsu.edu/wri/buoy/data-generate.htm?"
@@ -45,7 +46,6 @@ fetch_buoy_data <- function(x = "date", y,
   # Fetching data from API
   MLbuoyData <- read.csv(URL)
 
-
   return(MLbuoyData)
 }
 
@@ -53,40 +53,42 @@ fetch_buoy_data <- function(x = "date", y,
 
 #' @title Plot Muskegon Lake Buoy Data
 #'
-#' @description This function offers a simple method to retrieve and display data from the Muskegon Lake Buoy through the use of Application Programming Interface.
-#' The raw data is transformed into an easy-to-read and visually appealing graph, facilitating comprehension and analysis.
-#' @param x The values to be plotted on the x-axis of the graph. If no value is specified, the date will be used as the default.
+#' @description This function offers a simple method to visualize data from Muskegon Lake in Muskegon County, Michigan from the Muskegon Lake Buoy API.
+#' Grand Valley State University's Robert B. Annis Water Resources Institute (AWRI) established the buoy-based observatory in 2010. More information on the Muskegon Lake Buoy is available on the AWRI website: \url{https://www.gvsu.edu/wri/buoy/}.
+#' The API documentation is available at \url{https://www.gvsu.edu/wri/buoy/data-api.htm}.
+#' @param x The values to be plotted on the x-axis of the graph.
+#' If no value is specified, date will be used as the default.
 #' @param y The values to be used on the y-axis of the graph.
 #' Multiple y values should be separated by a comma.
-#' @param date Date values must be in the format MM/DD/YYYY or M/D/YY.
-#' If no value is provided then the default is "01/01/2023 - 01/31/2023" which represents a range of dates from January 1, 2023, to January 31, 2023. The first date (01/01/2023) represents the start date, and the second date (01/31/2023) represents the end date.
+#' @param start_date A specific date in time that marks the beginning of a particular period.
+#' Date values must be in the format MM/DD/YYYY or M/D/YY.
+#' The default value is 10/01/2022.
+#' @param end_date A specific date in time that marks the end of a particular period.
+#' Values must be in the format MM/DD/YYYY or M/D/YY.
+#' The default date is 10/31/2022.
 #' @param graph_type The type of chart to be plotted.
 #' The supported types are scatter, line, bar, and boxplot.
-#' @details The arguments for x and y must be supported values. More information can be found at Grand Valley State University Muskegon Lake Buoy website: \url{https://www.gvsu.edu/wri/buoy/data-api.htm}
+#' @details The arguments for x and y must be supported values. More information can be found at Grand Valley State University Muskegon Lake Buoy API website: \url{https://www.gvsu.edu/wri/buoy/data-api.htm}
 #' @return A graph of x values by y values
 #' @import tidyverse
 #' @examples plot_buoy_data(x="weekday",y="rh1", graph_type="line")
 #' @author Beatrice Ngigi
-#' @author Andrew DiLernia
-#'
-#'
+#' @author Prof. Andrew DiLernia
 #' @export
-plot_buoy_data <- function(x = "date", y = NULL,
-                           start_date = "1/01/2023",
-                           end_date = "1/31/2023", graph_type) {
 
-  # Constructing date from start_date & end_date
-  date <- paste0(start_date, "-", end_date)
+plot_buoy_data <- function(x = "date",
+                           y = NULL,
+                           start_date = "10/01/2022",
+                           end_date = "10/31/2022",
+                           graph_type) {
 
   # Fetching data
-  mlData <- fetch_buoy_data(x = "date", y = NULL, date = "01/01/2023 - 01/31/2023", time = NULL,
-                            calculation = NULL, concentration = NULL)
+  mlData <- fetch_buoy_data(x = "date", y = NULL, start_date = "10/01/2022",
+                            end_date = "10/31/2022", time = NULL,
+                            calculation = NULL)
 
   if("x_yearmonth" %in% names(mlData)){
     mlData <- dplyr::mutate(mlData, x_yearmonth = case_when(
-        x_yearmonth == 1 ~ "Jan",
-        x_yearmonth == 2 ~ "Feb",
-        x_yearmonth == 3 ~ "March",
         x_yearmonth == 4 ~ "April",
         x_yearmonth == 5 ~ "May",
         x_yearmonth == 6 ~ "June",
@@ -94,8 +96,7 @@ plot_buoy_data <- function(x = "date", y = NULL,
         x_yearmonth == 8 ~ "Aug",
         x_yearmonth == 9 ~ "Sept",
         x_yearmonth == 10 ~ "Oct",
-        x_yearmonth == 11 ~ "Nov",
-        x_yearmonth == 12 ~ "Dec"))
+        x_yearmonth == 11 ~ "Nov"))
   }
 
   if("x_weekday" %in% names(mlData)){
