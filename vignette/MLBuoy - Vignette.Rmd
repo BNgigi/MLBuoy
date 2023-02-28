@@ -13,7 +13,10 @@ vignette: >
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
-  comment = "#>"
+  comment = "#>",
+  echo = TRUE, 
+  message = FALSE, 
+  warning = FALSE
 )
 ```
 
@@ -60,8 +63,9 @@ Before using the Fetch Muskegon Lake Buoy Data function, you must import tidyver
 
 Here is an example of how to use the Fetch Muskegon Lake Buoy Data function:
 
-```{r, error=TRUE}
-library(MLBuoy)
+```{r, error=FALSE}
+# Installation the package: devtools::install_github("https://github.com/BNgigi/MLBuoy")
+# Load the libraries: tidyverse and MLBuoy
 fetch_buoy_data(x="weekday",y="atmp1,tp001,tp002", start_date="7/7/11", end_date="7/28/11")
 ```
 
@@ -100,7 +104,8 @@ Before using the Plot Muskegon Lake Buoy Data function, you must import tidyvers
 
 The following is an example of how to use the Plot Muskegon Lake Buoy Data function:
 
-```{r, error=TRUE, message=TRUE, warning=TRUE}
+```{r, error=TRUE}
+library(tidyverse)
 library(MLBuoy)
 Plot_buoy_data (x="weekday", y="rh1", start_date="7/7/11", end_date="7/28/11", graph_type="scatter")
 ```
