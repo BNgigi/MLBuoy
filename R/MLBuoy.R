@@ -44,7 +44,7 @@ fetch_buoy_data <- function(x = "date",
   URL <- paste0(baseURL, paste(paste0(names(inputs), "=", inputs), collapse = "&"), "&format=csv")
 
   # Fetching data from API
-  MLbuoyData <- read.csv(URL)
+  MLbuoyData <- utils::read.csv(URL)
 
   return(MLbuoyData)
 }
@@ -88,7 +88,7 @@ plot_buoy_data <- function(x = "date",
                             calculation = NULL)
 
   if("x_yearmonth" %in% names(mlData)){
-    mlData <- dplyr::mutate(mlData, x_yearmonth = case_when(
+    mlData <- dplyr::mutate(mlData, x_yearmonth = dplyr::case_when(
         x_yearmonth == 4 ~ "April",
         x_yearmonth == 5 ~ "May",
         x_yearmonth == 6 ~ "June",
@@ -100,8 +100,7 @@ plot_buoy_data <- function(x = "date",
   }
 
   if("x_weekday" %in% names(mlData)){
-    mlData <- mlData %>%
-      dplyr::mutate(x_weekday = dplyr::case_when(
+    mlData <- dplyr::mutate(mlData, x_weekday = dplyr::case_when(
         x_weekday == 1 ~ "Mon",
         x_weekday == 2 ~ "Tue",
         x_weekday == 3 ~ "Wed",
@@ -163,58 +162,58 @@ plot_buoy_data <- function(x = "date",
   y_val <- parameters[[y]]
 
   if(graph_type == "scatter"){
-    plt <- ggplot(mlData, aes_(x=as.name(paste0('x_',x)),
-                                     y=as.name(paste0('y_',y)))) +
-      geom_point() +
-      geom_smooth(se=FALSE, method="lm", size=1) +
-      ggtitle(paste('Scatter plot of', x_val, 'by', y_val )) +
-      xlab(paste0(x_val)) +
-      ylab(paste0(y_val)) +
-      labs(caption = "Data Source: The Muskegon Lake Observatory Buoy") +
-      theme_bw()
+    plt <- ggplot2::ggplot(mlData, ggplot2::aes_(x=rlang::as.name(paste0('x_',x)),
+                                                 y=rlang::as.name(paste0('y_',y)))) +
+      ggplot2::geom_point() +
+      ggplot2::geom_smooth(se=FALSE, method="lm", size=1) +
+      ggplot2::ggtitle(paste('Scatter plot of', x_val, 'by', y_val )) +
+      ggplot2::xlab(paste0(x_val)) +
+      ggplot2::ylab(paste0(y_val)) +
+      ggplot2::labs(caption = "Data Source: The Muskegon Lake Observatory Buoy") +
+      ggplot2::theme_bw()
 
     return(plt)
 
   } else if (graph_type == "line"){
 
-    plt <- ggplot(mlData, aes_string(x=paste0('x_',x),
-                                     y=paste0('y_',y)))  +
-      stat_summary(geom="line", fun=mean, size=1) +
-      ggtitle(paste('Line plot of', x_val, 'by', y_val))+
-      xlab(paste0(x_val)) +
-      ylab(paste0(y_val)) +
-      labs(caption = "Data Source: The Muskegon Lake Observatory Buoy") +
-      theme_bw()
+    plt <- ggplot2::ggplot(mlData, ggplot2::aes_(x=rlang::as.name(paste0('x_',x)),
+                                                 y=rlang::as.name(paste0('y_',y))))  +
+      ggplot2::stat_summary(geom="line", fun=mean, size=1) +
+      ggplot2::ggtitle(paste('Line plot of', x_val, 'by', y_val))+
+      ggplot2::xlab(paste0(x_val)) +
+      ggplot2::ylab(paste0(y_val)) +
+      ggplot2::labs(caption = "Data Source: The Muskegon Lake Observatory Buoy") +
+      ggplot2::theme_bw()
 
     return(plt)
 
   }else if (graph_type == "boxplot"){
-    plt <- ggplot(mlData, aes_string(x=paste0("x_", as.factor(x)),
-                                     y=paste0("y_", y))) +
-      geom_boxplot() +
-      ggtitle(paste('Boxplot of', x_val, 'by', y_val)) +
-      xlab(paste0(x_val)) +
-      ylab(paste0(y_val)) +
-      labs(caption = "Data Source: The Muskegon Lake Observatory Buoy") +
-      theme_bw() +
-      theme(text = element_text(face= "bold"),
-            axis.title=element_text(size=14), legend.position="bottom",
-            plot.title=element_text(hjust=0.50))
+    plt <- ggplot2::ggplot(mlData, ggplot2::aes_(x=rlang::as.name(paste0("x_", as.factor(x))),
+                                                 y=rlang::as.name(paste0("y_", y)))) +
+      ggplot2::geom_boxplot() +
+      ggplot2::ggtitle(paste('Boxplot of', x_val, 'by', y_val)) +
+      ggplot2::xlab(paste0(x_val)) +
+      ggplot2::ylab(paste0(y_val)) +
+      ggplot2::labs(caption = "Data Source: The Muskegon Lake Observatory Buoy") +
+      ggplot2::theme_bw() +
+      ggplot2::theme(text = element_text(face= "bold"),
+                axis.title=element_text(size=14), legend.position="bottom",
+                plot.title=element_text(hjust=0.50))
 
     return(plt)
 
   }else if (graph_type == "bar"){
-    plt <- ggplot(mlData, aes_string(x=paste0("x_", x),
-                                     y=paste0("y_", y))) +
-      geom_bar(stat="identity") +
-      ggtitle(paste('A Bar Graph of', x_val, 'by', y_val))+
-      xlab(paste0(x_val)) +
-      ylab(paste0(y_val)) +
-      labs(caption = "Data Source: The Muskegon Lake Observatory Buoy") +
-      theme_classic() +
-      theme(text = element_text(face= "bold"),
-            axis.title=element_text(size=14), legend.position="bottom",
-            plot.title=element_text(hjust=0.50))
+    plt <- ggplot2::ggplot(mlData, ggplot2::aes_(x=rlang::as.name(paste0('x_',x)),
+                                                 y=rlang::as.name(paste0('y_',y))))  +
+      ggplot2::geom_bar(stat="identity") +
+      ggplot2::ggtitle(paste('A Bar Graph of', x_val, 'by', y_val))+
+      ggplot2::xlab(paste0(x_val)) +
+      ggplot2::ylab(paste0(y_val)) +
+      ggplot2::labs(caption = "Data Source: The Muskegon Lake Observatory Buoy") +
+      ggplot2::theme_classic() +
+      ggplot2::theme(text = element_text(face= "bold"),
+                axis.title=element_text(size=14), legend.position="bottom",
+                plot.title=element_text(hjust=0.50))
 
     return(plt)
   }
