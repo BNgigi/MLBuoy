@@ -26,4 +26,4 @@ Here-below is overview of the main functions:-
 
 ## Example
 
-For a detailed description for implementing the MLBuoy Package, see this [Package Vignette](https://github.com/BNgigi/MLBuoy/blob/main/vignette/MLBuoy---Vignette.html)
+For a detailed description for implementing the MLBuoy Package, see this [Package Vignette](https://github.com/BNgigi/MLBuoy/tree/main/vignette)
