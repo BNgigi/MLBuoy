@@ -66,7 +66,12 @@ Here is an example of how to use the Fetch Muskegon Lake Buoy Data function:
 ```{r, error=FALSE}
 # Installation the package: devtools::install_github("https://github.com/BNgigi/MLBuoy")
 # Load the libraries: tidyverse and MLBuoy
-fetch_buoy_data(x="weekday",y="atmp1,tp001,tp002", start_date="7/7/11", end_date="7/28/11")
+library(MLBuoy)
+library(tidyverse)
+
+buoyData <- fetch_buoy_data(x="weekday",y="atmp1,tp001,tp002", start_date="7/7/11", end_date="7/28/11")
+
+knitr::kable(head(buoyData, n = 12))
 ```
 
 In this example, we are retrieving data for the atmp1, tp001, and tp002 as per day of week for the period between July 7, 2011 and July 28, 2011.
@@ -107,11 +112,12 @@ The following is an example of how to use the Plot Muskegon Lake Buoy Data funct
 ```{r, error=TRUE}
 library(tidyverse)
 library(MLBuoy)
-Plot_buoy_data (x="weekday", y="rh1", start_date="7/7/11", end_date="7/28/11", graph_type="scatter")
+
+plot_buoy_data (x="weekday", y="rh1", start_date="7/7/11", end_date="7/28/11", graph_type="scatter")
 ```
 
 # **Package Development**
 
-The MLBuoy R Package was developed by Beatrice Ngigi and Prof. Andrew DiLernia.
+The MLBuoy R Package was developed by Beatrice Ngigi and Andrew DiLernia.
 
 
