@@ -18,10 +18,12 @@ Here-below is overview of the main functions:-
 
 ## Installation of the package
 
-    ### Install the devtools package first
+    # Install devtools package if needed
+    if(!("devtools" %in% installed.packages())) {
     install.packages("devtools")
+    }
 
-    ### Then install MLBuoy package from GitHub as follows
+    # Install MLBuoy package from GitHub
     devtools::install_github("https://github.com/BNgigi/MLBuoy")
 
 ## Example
