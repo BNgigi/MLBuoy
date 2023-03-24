@@ -16,7 +16,7 @@ Here-below is overview of the main functions:-
 | fetch_buoy_data | Obtains data on current and historical conditions of Muskegon Lake in Muskegon County, Michigan from the Muskegon Lake Buoy API. |
 | plot_buoy_data | Offers a simple method to visualize data obtained from Muskegon Lake Buoy. |
 
-## Installation of the package
+## Package Installation
 
     # Install devtools package if needed
     if(!("devtools" %in% installed.packages())) {
