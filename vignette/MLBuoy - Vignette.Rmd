@@ -114,6 +114,12 @@ library(tidyverse)
 library(MLBuoy)
 
 plot_buoy_data (x="weekday", y="rh1", start_date="7/7/11", end_date="7/28/11", graph_type="scatter")
+
+plot_buoy_data (x="weekday", y="rh1", start_date="7/7/11", end_date="7/28/11", graph_type="line")
+
+plot_buoy_data (x="weekday", y="rh1", start_date="7/7/11", end_date="7/28/11", graph_type="bar")
+
+plot_buoy_data (x="weekday", y="rh1", start_date="7/7/11", end_date="7/28/11", graph_type="boxplot")
 ```
 
 # **Package Development**

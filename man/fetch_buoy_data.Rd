@@ -5,51 +5,51 @@
 \title{Fetch Muskegon Lake Buoy Data}
 \usage{
 fetch_buoy_data(
-  y,
   x = "date",
+  y,
+  start_date = "10/01/2022",
+  end_date = "10/31/2022",
   time = NULL,
-  calculation = NULL,
-  concentration = NULL,
-  start_date = "2023-01-01",
-  end_date = "2023-01-31"
+  calculation = NULL
 )
 }
 \arguments{
+\item{x}{A single x value may be used.
+If no value is specified, date will be used as the default.}
+
 \item{y}{At least one y value is required.
 Multiple y values should be separated by a comma.}
 
-\item{x}{A single x value may be used. If no value is specified, the date will be used as the default.}
+\item{start_date}{A specific date in time that marks the beginning of a particular period.
+Date values must be in the format MM/DD/YYYY or M/D/YY.
+The default value is 10/01/2022.}
+
+\item{end_date}{A specific date in time that marks the end of a particular period.
+Values must be in the format MM/DD/YYYY or M/D/YY.
+The default date is 10/31/2022.}
 
 \item{time}{Time values must be in the 24-hour format H:MM or HH:MM.
 The values must also be divisible by 15 minutes (0:00, 0:15, 0:30, and 0:45).
 If no value is provided then all times are considered.}
 
 \item{calculation}{The mathematical calculation performed on the range points within an x variable's concentration.}
-
-\item{concentration}{A decimal number in the range .01-1.0 which represents the total amount of y plots per x variable.
-The closer to 1 this number is, the more points will be present in the output and the more accurate the graph.
-If no value is provided then all points are considered.}
-
-\item{date}{Date values must be in the format MM/DD/YYYY or M/D/YY.
-If no value is provided then all dates are considered.}
-
-\item{start_date:}{Optional argument with a default value of "1/1/18", representing the earliest date to retrieve data for.}
-
-\item{end_date:}{Optional argument with a default value of "2/13/23", representing the latest date to retrieve data for.}
 }
 \value{
 A data frame based on the provided parameters.
 }
 \description{
-This function fetches data on current and historical conditions of Muskegon Lake in Muskegon County, Michigan from the Muskegon Lake Buoy API. API documentation is available at \url{https://www.gvsu.edu/wri/buoy/data-api.htm}
-
-Grand Valley State University's Robert B. Annis Water Resources Institute (AWRI) established a buoy-based observatory in Muskegon Lake in 2010, and the earliest data available from the API is in 2011. More information on the Muskegon Lake Buoy is available on the AWRI website: \url{https://www.gvsu.edu/wri/buoy/}
+This function fetches data on current and historical conditions of Muskegon Lake in Muskegon County, Michigan from the Muskegon Lake Buoy API.
+Grand Valley State University's Robert B. Annis Water Resources Institute (AWRI) established the buoy-based observatory in 2010. More information on the Muskegon Lake Buoy is available on the AWRI website: \url{https://www.gvsu.edu/wri/buoy/}.
+The API documentation is available at \url{https://www.gvsu.edu/wri/buoy/data-api.htm}.
+}
+\details{
+The arguments for x and y must be supported values. More information can be found at Grand Valley State University Muskegon Lake Buoy API website: \url{https://www.gvsu.edu/wri/buoy/data-api.htm}
 }
 \examples{
-fetch_buoy_data(y="atmp1,tp001,tp002", x="date", date="7/7/11,7/14/11,7/21/11,7/28/11", concentration="1")
+fetch_buoy_data(x="weekday",y="atmp1,tp001,tp002", start_date="7/7/11", end_date="7/28/11")
 }
 \author{
 Beatrice Ngigi
 
-Andrew DiLernia
+Prof. Andrew DiLernia
 }

@@ -26,37 +26,37 @@
 #' @author Prof. Andrew DiLernia
 #' @export
 
-fetch_buoy_data <- function(x = "date",
-                            y,
-                            start_date = "10/01/2022",
-                            end_date = "10/31/2022",
-                            time = NULL,
-                            calculation = NULL) {
 
-  # Constructing date from start_date & end_date
-  date <- paste0(start_date, "-", end_date)
+  fetch_buoy_data <- function(x = "date",
+                              y,
+                              start_date = "10/01/2022",
+                              end_date = "10/31/2022",
+                              time = NULL,
+                              calculation = NULL) {
 
-  # Creating a named vector of inputs
-  inputs <- c(x = x, y = y, date = date, time = time, calculation = calculation)
+    # Constructing date from start_date & end_date
+    date <- paste0(start_date, "-", end_date)
 
-  # Constructing URL for API query
-  baseURL <- "http://www.gvsu.edu/wri/buoy/data-generate.htm?"
-  URL <- paste0(baseURL, paste(paste0(names(inputs), "=", inputs), collapse = "&"), "&format=csv")
+    # Creating a named vector of inputs
+    inputs <- c(x = x, y = y, date = date, time = time, calculation = calculation)
 
-  # Fetching data from API
-  MLbuoyData <- utils::read.csv(URL)
+    # Constructing URL for API query
+    baseURL <- "http://www.gvsu.edu/wri/buoy/data-generate.htm?"
+    URL <- paste0(baseURL, paste(paste0(names(inputs), "=", inputs), collapse = "&"), "&format=csv")
 
-  # Creating date column based on date, time and timezone columns
-  if (!is.null(time)) {
-    datetime_str <- paste0(date, " ", time, " UTC")
-    MLbuoyData$date <- as.POSIXct(datetime_str, format = "%m/%d/%Y-%m/%d/%Y %H:%M:%S %Z")
-  } else {
-    MLbuoyData$date <- as.Date(date, format = "%m/%d/%Y-%m/%d/%Y")
+    # Fetching data from API
+    MLbuoyData <- utils::read.csv(URL)
+
+    # Creating date column based on date, time and timezone columns
+    if (!is.null(time)) {
+      datetime_str <- paste0(date, " ", time, " UTC")
+      MLbuoyData$date <- as.POSIXct(datetime_str, format = "%m/%d/%Y-%m/%d/%Y %H:%M:%S %Z")
+    } else {
+      MLbuoyData$date <- as.Date(date, format = "%m/%d/%Y-%m/%d/%Y")
+    }
+
+    return(MLbuoyData)
   }
-
-  return(MLbuoyData)
-}
-
 
 
 #' @title Plot Muskegon Lake Buoy Data
@@ -91,8 +91,8 @@ plot_buoy_data <- function(x = "date",
                            graph_type) {
 
   # Fetching data
-  mlData <- fetch_buoy_data(x = "date", y = NULL, start_date = "10/01/2022",
-                            end_date = "10/31/2022", time = NULL,
+  mlData <- fetch_buoy_data(x , y , start_date,
+                            end_date, time = NULL,
                             calculation = NULL)
 
   if("x_yearmonth" %in% names(mlData)){
@@ -119,7 +119,7 @@ plot_buoy_data <- function(x = "date",
   }
 
   # Creating the arguments for x and y parameters
-  parameters <- tibble(atmp1 = "Air Temp °F (above surface)",
+  parameters <-dplyr::tibble(atmp1 = "Air Temp °F (above surface)",
                        atmp1max = "Maximum Air Temperature (Long term since 2011) °F (above surface)",
                        atmp1min = "Minimum Air Temperature (Long term since 2011) °F (above surface)",
                        baro1 = "Relative Barometric Pressure in Hg (above surface)",
