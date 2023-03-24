@@ -46,6 +46,14 @@ fetch_buoy_data <- function(x = "date",
   # Fetching data from API
   MLbuoyData <- utils::read.csv(URL)
 
+  # Creating date column based on date, time and timezone columns
+  if (!is.null(time)) {
+    datetime_str <- paste0(date, " ", time, " UTC")
+    MLbuoyData$date <- as.POSIXct(datetime_str, format = "%m/%d/%Y-%m/%d/%Y %H:%M:%S %Z")
+  } else {
+    MLbuoyData$date <- as.Date(date, format = "%m/%d/%Y-%m/%d/%Y")
+  }
+
   return(MLbuoyData)
 }
 
