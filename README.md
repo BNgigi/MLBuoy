@@ -1,23 +1,5 @@
----
-title: "MLBuoy"
-output:
-  html_document:
-    code_folding: show
-    theme:
-      bg: "#202123"
-      fg: "#B8BCC2"
-      primary: "#EA80FC"
-      secondary: "#00DAC6"
-      base_font:
-        google: Prompt
-      heading_font:
-        google: Proza Libre
----
-
-```{r setup, include=FALSE}
-if (requireNamespace("thematic"))
-  thematic::thematic_rmd(font = "auto")
-```
+# MLBuoy
+Muskegon Lake Buoy
 
 ## Description
 
