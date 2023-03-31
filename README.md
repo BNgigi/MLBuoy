@@ -1,27 +1,6 @@
 # MLBuoy
 Muskegon Lake Buoy
 
----
-title: "MLBuoy"
-output: 
-  html_document:
-    code_folding: show
-    theme:
-      bg: "#202123"
-      fg: "#B8BCC2"
-      primary: "#EA80FC"
-      secondary: "#00DAC6"
-      base_font:
-        google: Prompt
-      heading_font:
-        google: Proza Libre
----
-
-```{r setup, include=FALSE}
-if (requireNamespace("thematic")) 
-  thematic::thematic_rmd(font = "auto")
-```
-
 ## Description
 
 Grand Valley State University's Robert B. Annis Water Resources Institute established a buoy-based observatory in Muskegon Lake in 2010. The Muskegon Lake Buoy is an important tool for monitoring the conditions of the lake and providing valuable information about the environment. It provides current conditions and historic data of Muskegon Lake in Muskegon County, Michigan going back to 2011, enabling researchers and stakeholders to gain a comprehensive understanding of the lake's ecosystem over time. 
