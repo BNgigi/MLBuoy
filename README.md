@@ -65,23 +65,70 @@ knitr::kable(head(buoyData, n = 12))
 
 In the example here-in, we are utilizing plot_buoy_data to create visualizations of the relationship between weekday and rh1 from July 7, 2011 to July 28, 2011, using different types of graphs.
 
+
 ```{r}
-# Load necessary libraries
-library(tidyverse)
+# Load the MLBuoy library and the tidyverse package
 library(MLBuoy)
+library(tidyverse)
 
-# Plot a scatter plot of relative humidity (y) by weekday (x) between 7/7/11 and 7/28/11
-plot_buoy_data (x="weekday", y="rh1", start_date="7/7/11", end_date="7/28/11", graph_type="scatter")
+# Generate a scatter plot of relative humidity vs. time of day
+plot_data <- plot_buoy_data(x = "weekday", y = "rh1", start_date = "7/7/11", end_date = "7/28/11", graph_type = "scatter")
 
-# Plot a line plot of relative humidity (y) by weekday (x) between 7/7/11 and 7/28/11
-plot_buoy_data (x="weekday", y="rh1", start_date="7/7/11", end_date="7/28/11", graph_type="line")
-
-# Plot a bar plot of relative humidity (y) by weekday (x) between 7/7/11 and 7/28/11
-plot_buoy_data (x="weekday", y="rh1", start_date="7/7/11", end_date="7/28/11", graph_type="bar")
-
-# plot a boxplot of relative humidity (y) by weekday (x) between 7/7/11 and 7/28/11
-plot_buoy_data (x="weekday", y="rh1", start_date="7/7/11", end_date="7/28/11", graph_type="boxplot")
+# Save the plot as a PNG image
+png("scatter_plot.png", width = 800, height = 600, res = 72)
+print(plot_data)
+dev.off()
 ```
+
+![ ](scatter_plot.png)
+
+```{r}
+# Load the MLBuoy library and the tidyverse package
+library(MLBuoy)
+library(tidyverse)
+
+# Create a line plot of air temperature (y) by relative humidity (x) between 7/7/11 and 7/28/11
+plot_data <- plot_buoy_data(x = "rh1", y = "atmp1", start_date = "7/7/11", end_date = "7/28/11", graph_type = "line")
+
+# Save the plot as a PNG image
+png("line_plot.png", width = 800, height = 600, res = 72)
+print(plot_data)
+dev.off()
+```
+
+![ ](line_plot.png)
+
+```{r}
+# Load the MLBuoy library and the tidyverse package
+library(MLBuoy)
+library(tidyverse)
+
+# Generate a bar plot of relative humidity vs. weekday
+plot_data <- plot_buoy_data(x = "weekday", y = "rh1", start_date = "7/7/11", end_date = "7/28/11", graph_type = "bar")
+
+# Save the plot as a PNG image
+png("bar_plot.png", width = 800, height = 600, res = 72)
+print(plot_data)
+dev.off()
+```
+
+![ ](bar_plot.png)
+
+```{r}
+# Load the MLBuoy library and the tidyverse package
+library(MLBuoy)
+library(tidyverse)
+
+# Generate a box plot of relative humidity vs. weekday
+plot_data <- plot_buoy_data(x = "weekday", y = "rh1", start_date = "7/7/11", end_date = "7/28/11", graph_type = "boxplot")
+
+# Save the plot as a PNG image
+png("box_plot.png", width = 800, height = 600, res = 72)
+print(plot_data)
+dev.off()
+```
+
+![ ](box_plot.png)
 
 ## References
 Biddanda, B., S. Kendall, A. Weinke, I. Stone, N. Dugener, and S. Ruberg. Muskegon Lake
