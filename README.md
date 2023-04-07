@@ -67,3 +67,8 @@ plot_buoy_data (x="weekday", y="rh1", start_date="7/7/11", end_date="7/28/11", g
 # plot a boxplot of relative humidity (y) by weekday (x) between 7/7/11 and 7/28/11
 plot_buoy_data (x="weekday", y="rh1", start_date="7/7/11", end_date="7/28/11", graph_type="boxplot")
 ```
+
+## References
+Biddanda, B., S. Kendall, A. Weinke, I. Stone, N. Dugener, and S. Ruberg. Muskegon Lake
+Observatory Buoy Data: Muskegon Lake, Michigan, USA: 2011-2022.
+(www.gvsu.edu/buoy) Time Series Data accessed: 7 April, 2022.
