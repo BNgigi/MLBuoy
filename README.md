@@ -71,4 +71,4 @@ plot_buoy_data (x="weekday", y="rh1", start_date="7/7/11", end_date="7/28/11", g
 ## References
 Biddanda, B., S. Kendall, A. Weinke, I. Stone, N. Dugener, and S. Ruberg. Muskegon Lake
 Observatory Buoy Data: Muskegon Lake, Michigan, USA: 2011-2022.
-(www.gvsu.edu/buoy) Time Series Data accessed: 7 April, 2022.
+(www.gvsu.edu/buoy) Time Series Data accessed: 7 April, 2023.
