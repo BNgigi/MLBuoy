@@ -1,12 +1,6 @@
 ---
 title: "MLBuoy R Package Vignette"
-output:
-  prettydoc::html_pretty:
-    theme: HPSTR
-vignette: >
-  %\VignetteIndexEntry{MLBuoy-vignette}
-  %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteEncoding{UTF-8}
+output: github_document
 ---
 
 ```{r, include = FALSE}
