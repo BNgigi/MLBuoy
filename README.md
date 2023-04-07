@@ -47,6 +47,21 @@ buoyData <- fetch_buoy_data(x="weekday", y="atmp1,tp001,tp002", start_date="7/7/
 # Display the first 12 rows of the buoy data in a table format
 knitr::kable(head(buoyData, n = 12))
 ```
+| x_weekday| y_atmp1| y_tp001| y_tp002|date       |
+|---------:|-------:|-------:|-------:|:----------|
+|         5|   68.00|   76.96|   76.96|0011-07-28 |
+|         5|      NA|      NA|      NA|0011-07-28 |
+|         5|      NA|      NA|      NA|0011-07-28 |
+|         5|   67.46|   77.09|   76.86|0011-07-28 |
+|         5|      NA|      NA|      NA|0011-07-28 |
+|         5|      NA|      NA|      NA|0011-07-28 |
+|         5|   66.92|   76.96|   76.86|0011-07-28 |
+|         5|      NA|      NA|      NA|0011-07-28 |
+|         5|      NA|      NA|      NA|0011-07-28 |
+|         5|   66.20|   76.96|   76.86|0011-07-28 |
+|         5|      NA|      NA|      NA|0011-07-28 |
+|         5|      NA|      NA|      NA|0011-07-28 |
+
 
 In the example here-in, we are utilizing plot_buoy_data to create visualizations of the relationship between weekday and rh1 from July 7, 2011 to July 28, 2011, using different types of graphs.
 
@@ -72,3 +87,4 @@ plot_buoy_data (x="weekday", y="rh1", start_date="7/7/11", end_date="7/28/11", g
 Biddanda, B., S. Kendall, A. Weinke, I. Stone, N. Dugener, and S. Ruberg. Muskegon Lake
 Observatory Buoy Data: Muskegon Lake, Michigan, USA: 2011-2022.
 (www.gvsu.edu/buoy) Time Series Data accessed: 7 April, 2023.
+
