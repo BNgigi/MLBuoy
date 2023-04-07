@@ -9,25 +9,20 @@
 #' If no value is specified, date will be used as the default.
 #' @param y At least one y value is required.
 #' Multiple y values should be separated by a comma.
-#' @param start_date A specific date in time that marks the beginning of a particular period.
-#' Date values must be in the format MM/DD/YYYY or M/D/YY.
-#' The default value is 10/01/2022.
-#' @param end_date A specific date in time that marks the end of a particular period.
-#' Values must be in the format MM/DD/YYYY or M/D/YY.
-#' The default date is 10/31/2022.
-#' @param time Time values must be in the 24-hour format H:MM or HH:MM.
-#' The values must also be divisible by 15 minutes (0:00, 0:15, 0:30, and 0:45).
-#' If no value is provided then all times are considered.
+#' @param start_date Start date in the format MM/DD/YYYY or M/D/YY.
+#' @param end_date End date in the format MM/DD/YYYY or M/D/YY.
+#' @param time Time of day in the format H:MM or HH:MM.
+#' Times must be in increments of 15 minutes (0:00, 0:15, 0:30, and 0:45).
+#' If no time value is provided, then all times are considered.
 #' @param calculation The mathematical calculation performed on the range points within an x variable's concentration.
 #' @details The arguments for x and y must be supported values. More information can be found at Grand Valley State University Muskegon Lake Buoy API website: \url{https://www.gvsu.edu/wri/buoy/data-api.htm}
 #' @return A data frame based on the provided parameters.
-#' @examples fetch_buoy_data(x="weekday",y="atmp1,tp001,tp002", start_date="7/7/11", end_date="7/28/11")
+#' @examples fetch_buoy_data(x = "weekday", y = "atmp1,tp001,tp002",
+#'                           start_date = "7/7/11", end_date = "7/28/11")
 #' @author Beatrice Ngigi
-#' @author Prof. Andrew DiLernia
+#' @author Andrew DiLernia
 #' @export
-
-
-  fetch_buoy_data <- function(x = "date",
+fetch_buoy_data <- function(x = "date",
                               y,
                               start_date = "10/01/2022",
                               end_date = "10/31/2022",
@@ -50,33 +45,28 @@
     # Return the modified data frame
     return(MLbuoyData)
 
-  }
+}
 
 #' @title Plot Muskegon Lake Buoy Data
 #'
-#' @description This function offers a simple method to visualize data from Muskegon Lake in Muskegon County, Michigan from the Muskegon Lake Buoy API.
+#' @description This function fetches and visualizes data from Muskegon Lake in Muskegon County, Michigan from the Muskegon Lake Buoy API.
 #' Grand Valley State University's Robert B. Annis Water Resources Institute (AWRI) established the buoy-based observatory in 2010. More information on the Muskegon Lake Buoy is available on the AWRI website: \url{https://www.gvsu.edu/wri/buoy/}.
 #' The API documentation is available at \url{https://www.gvsu.edu/wri/buoy/data-api.htm}.
 #' @param x The values to be plotted on the x-axis of the graph.
 #' If no value is specified, date will be used as the default.
 #' @param y The values to be used on the y-axis of the graph.
 #' Multiple y values should be separated by a comma.
-#' @param start_date A specific date in time that marks the beginning of a particular period.
-#' Date values must be in the format MM/DD/YYYY or M/D/YY.
-#' The default value is 10/01/2022.
-#' @param end_date A specific date in time that marks the end of a particular period.
-#' Values must be in the format MM/DD/YYYY or M/D/YY.
-#' The default date is 10/31/2022.
+#' @param start_date Desired start date in the format MM/DD/YYYY or M/D/YY.
+#' @param end_date Desired end date in the format MM/DD/YYYY or M/D/YY.
 #' @param graph_type The type of chart to be plotted.
 #' The supported types are scatter, line, bar, and boxplot.
 #' @details The arguments for x and y must be supported values. More information can be found at Grand Valley State University Muskegon Lake Buoy API website: \url{https://www.gvsu.edu/wri/buoy/data-api.htm}
 #' @return A graph of x values by y values
 #' @import tidyverse
-#' @examples plot_buoy_data(x="weekday",y="rh1", graph_type="line")
+#' @examples plot_buoy_data(x = "weekday", y = "rh1", graph_type = "line")
 #' @author Beatrice Ngigi
-#' @author Prof. Andrew DiLernia
+#' @author Andrew DiLernia
 #' @export
-
 plot_buoy_data <- function(x = "date",
                            y = NULL,
                            start_date = "10/01/2022",
@@ -89,26 +79,16 @@ plot_buoy_data <- function(x = "date",
                             calculation = NULL)
 
   if("x_yearmonth" %in% names(mlData)){
-    mlData <- dplyr::mutate(mlData, x_yearmonth = dplyr::case_when(
-        x_yearmonth == 4 ~ "April",
-        x_yearmonth == 5 ~ "May",
-        x_yearmonth == 6 ~ "June",
-        x_yearmonth == 7 ~ "July",
-        x_yearmonth == 8 ~ "Aug",
-        x_yearmonth == 9 ~ "Sept",
-        x_yearmonth == 10 ~ "Oct",
-        x_yearmonth == 11 ~ "Nov"))
+    mlData <- dplyr::mutate(mlData,
+                            x_yearmonth = lubridate::month(x_yearmonth,
+                                                           label = TRUE,
+                                                           abbr = TRUE))
   }
 
   if("x_weekday" %in% names(mlData)){
-    mlData <- dplyr::mutate(mlData, x_weekday = dplyr::case_when(
-        x_weekday == 1 ~ "Mon",
-        x_weekday == 2 ~ "Tue",
-        x_weekday == 3 ~ "Wed",
-        x_weekday == 4 ~ "Thur",
-        x_weekday == 5 ~ "Fri",
-        x_weekday == 6 ~ "Sat",
-        x_weekday == 7 ~ "Sun"))
+    mlData <- dplyr::mutate(mlData, x_weekday = lubridate::wday(x_weekday,
+                                                                label = TRUE,
+                                                                abbr = TRUE))
   }
 
   # Creating the arguments for x and y parameters
@@ -167,7 +147,7 @@ plot_buoy_data <- function(x = "date",
                                                  y=as.name(paste0('y_',y)))) +
       ggplot2::geom_point() +
       ggplot2::geom_smooth(se=FALSE, method="lm", size=1) +
-      ggplot2::ggtitle(paste('Scatter plot of', x_val, 'by', y_val )) +
+      ggplot2::ggtitle(paste(x_val, 'by', y_val )) +
       ggplot2::xlab(paste0(x_val)) +
       ggplot2::ylab(paste0(y_val)) +
       ggplot2::labs(caption = "Data Source: The Muskegon Lake Observatory Buoy") +
@@ -180,7 +160,7 @@ plot_buoy_data <- function(x = "date",
     plt <- ggplot2::ggplot(mlData, ggplot2::aes_(x=as.name(paste0('x_',x)),
                                                  y=as.name(paste0('y_',y))))  +
       ggplot2::stat_summary(geom="line", fun=mean, size=1) +
-      ggplot2::ggtitle(paste('Line plot of', x_val, 'by', y_val))+
+      ggplot2::ggtitle(paste(x_val, 'by', y_val))+
       ggplot2::xlab(paste0(x_val)) +
       ggplot2::ylab(paste0(y_val)) +
       ggplot2::labs(caption = "Data Source: The Muskegon Lake Observatory Buoy") +
@@ -192,7 +172,7 @@ plot_buoy_data <- function(x = "date",
     plt <- ggplot2::ggplot(mlData, ggplot2::aes_(x=as.name(paste0("x_", as.factor(x))),
                                                  y=as.name(paste0("y_", y)))) +
       ggplot2::geom_boxplot() +
-      ggplot2::ggtitle(paste('Boxplot of', x_val, 'by', y_val)) +
+      ggplot2::ggtitle(paste(x_val, 'by', y_val)) +
       ggplot2::xlab(paste0(x_val)) +
       ggplot2::ylab(paste0(y_val)) +
       ggplot2::labs(caption = "Data Source: The Muskegon Lake Observatory Buoy") +
@@ -207,14 +187,15 @@ plot_buoy_data <- function(x = "date",
     plt <- ggplot2::ggplot(mlData, ggplot2::aes_(x=as.name(paste0('x_',x)),
                                                  y=as.name(paste0('y_',y))))  +
       ggplot2::geom_bar(stat="identity") +
-      ggplot2::ggtitle(paste('A Bar Graph of', x_val, 'by', y_val))+
+      ggplot2::ggtitle(paste(x_val, 'by', y_val))+
       ggplot2::xlab(paste0(x_val)) +
       ggplot2::ylab(paste0(y_val)) +
+      ggplot2::scale_y_continuous(expand = expansion(mult = c(0, 0.1))) +
       ggplot2::labs(caption = "Data Source: The Muskegon Lake Observatory Buoy") +
-      ggplot2::theme_classic() +
-      ggplot2::theme(text = element_text(face= "bold"),
-                axis.title=element_text(size=14), legend.position="bottom",
-                plot.title=element_text(hjust=0.50))
+      ggplot2::theme_bw() +
+      ggplot2::theme(text = ggplot2::element_text(face= "bold"),
+                axis.title=ggplot2::element_text(size=14), legend.position="bottom",
+                plot.title=ggplot2::element_text(hjust=0.50))
 
     return(plt)
   }
