@@ -63,14 +63,19 @@ knitr::kable(head(buoyData, n = 12))
 |         5|      NA|      NA|      NA|0011-07-28 |
 
 
-In the example here-in, we are utilizing plot_buoy_data to create visualizations of the relationship between weekday and rh1 from July 7, 2011 to July 28, 2011, using different types of graphs.
+In the following example, we will be utilizing the plot_buoy_data function from the MLBuoy library to create different types of visualizations. Specifically, we will be generating a scatter plot, line plot, bar plot, and box plot.
 
+To get started, we need to load the MLBuoy library and the tidyverse package:
 
 ```{r}
 # Load the MLBuoy library and the tidyverse package
 library(MLBuoy)
 library(tidyverse)
+```
 
+Next, we will generate a scatter plot using the plot_buoy_data function. The x parameter is set to "weekday" and the y parameter is set to "rh1", representing the weekday and relative humidity variables, respectively. We also specify the start date as "7/7/11" and the end date as "7/28/11". Lastly, we set graph_type to "scatter" to generate a scatter plot.
+
+```{r}
 # Generate a scatter plot of relative humidity vs. time of day
 plot_data <- plot_buoy_data(x = "weekday", y = "rh1", start_date = "7/7/11", end_date = "7/28/11", graph_type = "scatter")
 
@@ -82,11 +87,9 @@ dev.off()
 
 ![ ](scatter_plot.png)
 
-```{r}
-# Load the MLBuoy library and the tidyverse package
-library(MLBuoy)
-library(tidyverse)
+Next, we create a line plot using plot_buoy_data() to visualize the change in relative humidity by air temperature. We specified x = "rh1" and y = "atmp1" and set start_date and end_date to "7/7/11" and "7/28/11", respectively, to limit the data to the specified time period. 
 
+```{r}
 # Create a line plot of air temperature (y) by relative humidity (x) between 7/7/11 and 7/28/11
 plot_data <- plot_buoy_data(x = "rh1", y = "atmp1", start_date = "7/7/11", end_date = "7/28/11", graph_type = "line")
 
@@ -98,11 +101,9 @@ dev.off()
 
 ![ ](line_plot.png)
 
-```{r}
-# Load the MLBuoy library and the tidyverse package
-library(MLBuoy)
-library(tidyverse)
+We can also generate a bar plot by setting graph_type to "bar":
 
+```{r}
 # Generate a bar plot of relative humidity vs. weekday
 plot_data <- plot_buoy_data(x = "weekday", y = "rh1", start_date = "7/7/11", end_date = "7/28/11", graph_type = "bar")
 
@@ -114,11 +115,9 @@ dev.off()
 
 ![ ](bar_plot.png)
 
-```{r}
-# Load the MLBuoy library and the tidyverse package
-library(MLBuoy)
-library(tidyverse)
+Finally, we can generate a box plot by setting graph_type to "boxplot": 
 
+```{r}
 # Generate a box plot of relative humidity vs. weekday
 plot_data <- plot_buoy_data(x = "weekday", y = "rh1", start_date = "7/7/11", end_date = "7/28/11", graph_type = "boxplot")
 
