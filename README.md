@@ -1,7 +1,17 @@
 ---
-title: "MLBuoy R Package Vignette"
+title: "MLBuoy"
 output: github_document
 ---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  echo = TRUE, 
+  message = FALSE, 
+  warning = FALSE
+)
+```
 
 # MLBuoy
 Muskegon Lake Buoy
