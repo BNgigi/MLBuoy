@@ -92,7 +92,7 @@ In this example, we are utilizing the fetch_buoy_data() function to retrieve dat
 
 # **Function 2: Plot Muskegon Lake Buoy Data**
 
-plot_buoy_data is designed to retrieve and extracts data from the Muskegon Lake Buoy through the use of an Application Programming Interface (API). The raw data is then transformed into an easy-to-read and visually appealing graph, facilitating comprehension and analysis.
+plot_buoy_data() function is designed to retrieve and extracts data from the Muskegon Lake Buoy through the use of an Application Programming Interface (API). The raw data is then transformed into an easy-to-read and visually appealing graph, facilitating comprehension and analysis.
 
 ## **Parameters**
 
