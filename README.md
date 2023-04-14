@@ -1,18 +1,3 @@
----
-title: "MLBuoy"
-output: github_document
----
-
-```{r, include = FALSE}
-knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>",
-  echo = TRUE, 
-  message = FALSE, 
-  warning = FALSE
-)
-```
-
 # MLBuoy
 Muskegon Lake Buoy
 
@@ -53,16 +38,14 @@ The function fetch_buoy_data() is used to retrieve data from the Muskegon Lake B
 
 The function takes the following parameters:
 
-```{r}
-library(knitr)
-kable(
-  data.frame(
-    Variable = c("x", "y", "start_date",  "end_date", "time", "calculation"), 
-    Description = c("A single x value", "At least one y value is required", "A specific date in time that marks the beginning of a particular period","A specific date in time that marks the end of a particular period", "Time values must be in the 24-hour format H:MM or HH:MM.", "The mathematical calculation performed on the range points within an x variable's concentration"),
-    Supported_Values = c("If no value is specified, date will be used as the default", "Multiple y values should be separated by a comma", "Date values must be in the format MM/DD/YYYY or M/D/YY. The default value is 10/01/2022", "Values must be in the format MM/DD/YYYY or M/D/YY. The default date is 10/31/2022", "The values must be divisible by 15 minutes (0:00, 0:15, 0:30, and 0:45). If no value is provided then all times are considered.", "Average, Minimum and Maximum")), 
-  format = "pandoc"
-)
-```
+| Variable    | Description                                                                                     | Supported_Values                                                                                                                |
+|:------------|:------------------------------------------------------------------------------------------------|:--------------------------------------------------------------------------------------------------------------------------------|
+| x           | A single x value                                                                                | If no value is specified, date will be used as the default                                                                      |
+| y           | At least one y value is required                                                                | Multiple y values should be separated by a comma                                                                                |
+| start_date  | A specific date in time that marks the beginning of a particular period                         | Date values must be in the format MM/DD/YYYY or M/D/YY. The default value is 10/01/2022                                         |
+| end_date    | A specific date in time that marks the end of a particular period                               | Values must be in the format MM/DD/YYYY or M/D/YY. The default date is 10/31/2022                                               |
+| time        | Time values must be in the 24-hour format H:MM or HH:MM.                                        | The values must be divisible by 15 minutes (0:00, 0:15, 0:30, and 0:45). If no value is provided then all times are considered. |
+| calculation | The mathematical calculation performed on the range points within an x variable’s concentration | Average, Minimum and Maximum                                                                                                    |
 
 Note: The arguments must use supported values. More information can be found at Grand Valley State University Muskegon Lake Buoy API website: https://www.gvsu.edu/wri/buoy/data-api.htm
 
