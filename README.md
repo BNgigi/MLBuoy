@@ -134,15 +134,8 @@ Next, we will generate a scatter plot using the plot_buoy_data function. The x p
 
 ```{r}
 # Generate a scatter plot of relative humidity vs. time of day
-plot_data <- plot_buoy_data(x = "weekday", y = "rh1", start_date = "7/7/11", end_date = "7/28/11", graph_type = "scatter")
-
-# Save the plot as a PNG image
-png("scatter_plot.png", width = 800, height = 600, res = 72)
-print(plot_data)
-dev.off()
+plot_buoy_data(x = "weekday", y = "rh1", start_date = "7/7/11", end_date = "7/28/11", graph_type = "scatter")
 ```
-
-![ ](scatter_plot.png)
 
 Next, we create a line plot using plot_buoy_data() to visualize the change in relative humidity by air temperature. We specified x = "rh1" and y = "atmp1" and set start_date and end_date to "7/7/11" and "7/28/11", respectively, to limit the data to the specified time period. 
 
