@@ -1,8 +1,3 @@
----
-title: "MLBuoy R Package Vignette"
-output: github_document
----
-
 # MLBuoy
 Muskegon Lake Buoy
 
