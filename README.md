@@ -199,7 +199,7 @@ We can also generate a bar plot by setting graph_type to “bar”:
 # Generate a bar plot of relative humidity vs. weekday
 plot_buoy_data(x = "weekday", y = "rh1", start_date = "7/7/11", end_date = "7/28/11", graph_type = "bar")
 ```
-
+ 
 ![](MLBuoy-README-Helper_files/figure-gfm/unnamed-chunk-7-1.png)<!-- -->
 
 Finally, we can generate a box plot by setting graph_type to “boxplot”:
