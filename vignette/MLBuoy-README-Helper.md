@@ -1,7 +1,11 @@
 MLBuoy R Package Vignette
 ================
 
-# **Introduction**
+# MLBuoy
+
+Muskegon Lake Buoy
+
+## Description
 
 Grand Valley State University’s Robert B. Annis Water Resources
 Institute (AWRI) established a buoy-based observatory in Muskegon Lake
@@ -27,14 +31,34 @@ historical conditions of Muskegon Lake in Muskegon County, Michigan from
 the Muskegon Lake Buoy API. The second function, plot_buoy_data, offers
 a simple method to visualize data obtained from Muskegon Lake Buoy.
 
+## Overview of the package’s functions
+
+| Function        | Description                                                                                                                                                                                                                                         |
+|-----------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| fetch_buoy_data | Extracts and obtains data on current and historical conditions of Muskegon Lake in Muskegon County, Michigan from the Muskegon Lake Buoy API.                                                                                                       |
+| plot_buoy_data  | Retrieves and extracts data from the Muskegon Lake Buoy through the use of an Application Programming Interface (API). The raw data is then transformed into an easy-to-read and visually appealing graph, facilitating comprehension and analysis. |
+
+## Installation
+
+Install the package from [GitHub](https://github.com/) using the code
+below:
+
+``` r
+if("devtools" %in% installed.packages() == FALSE) {
+    install.packages("devtools")
+}
+
+devtools::install_github("BNgigi/MLBuoy")
+```
+
 # **Function 1: Fetch Muskegon Lake Buoy Data**
 
-Fetch Muskegon Lake Buoy Data is used to retrieve data from the Muskegon
-Lake Buoy. It allows the user to obtain valuable information about the
-current conditions and historical data of the lake, all through the
-convenience of an API. The function provides comprehensive understanding
-of the lake’s conditions over time as it grants access to a wealth of
-data dating back to 2011.
+The function fetch_buoy_data() is used to retrieve data from the
+Muskegon Lake Buoy. It allows the user to obtain valuable information
+about the current conditions and historical data of the lake, all
+through the convenience of an API. The function provides comprehensive
+understanding of the lake’s conditions over time as it grants access to
+a wealth of data dating back to 2011.
 
 ## **Parameters**
 
@@ -69,13 +93,14 @@ Here is an example of how to use the Fetch Muskegon Lake Buoy Data
 function:
 
 ``` r
-# Installation the package: devtools::install_github("https://github.com/BNgigi/MLBuoy")
-# Load the libraries: tidyverse and MLBuoy
+# Load the MLBuoy library and the tidyverse package
 library(MLBuoy)
 library(tidyverse)
 
-buoyData <- fetch_buoy_data(x="weekday",y="atmp1,tp001,tp002", start_date="7/7/11", end_date="7/28/11")
+# Fetch buoy data with specific parameters
+buoyData <- fetch_buoy_data(x="weekday", y="atmp1,tp001,tp002", start_date="7/7/11", end_date="7/28/11")
 
+# Display the first 12 rows of the buoy data in a table format
 knitr::kable(head(buoyData, n = 12))
 ```
 
@@ -93,18 +118,31 @@ knitr::kable(head(buoyData, n = 12))
 |         5 |   66.20 |   76.96 |   76.86 | 0011-07-28 |
 |         5 |      NA |      NA |      NA | 0011-07-28 |
 |         5 |      NA |      NA |      NA | 0011-07-28 |
+| x_weekday | y_atmp1 | y_tp001 | y_tp002 | date       |
+|      ———: |    ——-: |    ——-: |    ——-: | :———-      |
+|         5 |   68.00 |   76.96 |   76.96 | 0011-07-28 |
+|         5 |      NA |      NA |      NA | 0011-07-28 |
+|         5 |      NA |      NA |      NA | 0011-07-28 |
+|         5 |   67.46 |   77.09 |   76.86 | 0011-07-28 |
+|         5 |      NA |      NA |      NA | 0011-07-28 |
+|         5 |      NA |      NA |      NA | 0011-07-28 |
+|         5 |   66.92 |   76.96 |   76.86 | 0011-07-28 |
+|         5 |      NA |      NA |      NA | 0011-07-28 |
+|         5 |      NA |      NA |      NA | 0011-07-28 |
+|         5 |   66.20 |   76.96 |   76.86 | 0011-07-28 |
+|         5 |      NA |      NA |      NA | 0011-07-28 |
+|         5 |      NA |      NA |      NA | 0011-07-28 |
 
-In this example, we are retrieving data for the atmp1, tp001, and tp002
-as per day of week for the period between July 7, 2011 and July 28,
-2011.
+In this example, we are utilizing the fetch_buoy_data() function to
+retrieve data for atmp1, tp001, and tp002 for each day of the week
+within the time frame of July 7, 2011 to July 28, 2011.
 
 # **Function 2: Plot Muskegon Lake Buoy Data**
 
-Plot Muskegon Lake Buoy Data is designed to retrieve and extracts data
-from the Muskegon Lake Buoy through the use of an Application
-Programming Interface (API). The raw data is then transformed into an
-easy-to-read and visually appealing graph, facilitating comprehension
-and analysis.
+plot_buoy_data() function is designed to retrieve and extracts data from
+the Muskegon Lake Buoy through the use of an Application Programming
+Interface (API). The raw data is then transformed into an easy-to-read
+and visually appealing graph, facilitating comprehension and analysis.
 
 ## **Parameters**
 
@@ -135,39 +173,73 @@ tidyverse library.
 ## **Function Usage**
 
 The following is an example of how to use the Plot Muskegon Lake Buoy
-Data function:
+Data function.
+
+We will be utilizing the plot_buoy_data() function from the MLBuoy
+library to create different types of visualizations. Specifically, we
+will be generating a scatter plot, line plot, bar plot, and box plot.
+
+To get started, we need to load the MLBuoy library and the tidyverse
+package:
 
 ``` r
-library(tidyverse)
+# Load the MLBuoy library and the tidyverse package
 library(MLBuoy)
-
-plot_buoy_data (x="weekday", y="rh1", start_date="7/7/11", end_date="7/28/11", graph_type="scatter")
+library(tidyverse)
 ```
 
-![](MLBuoy---README-Helper_files/figure-gfm/unnamed-chunk-5-1.png)<!-- -->
+Next, we will generate a scatter plot using the plot_buoy_data function.
+The x parameter is set to “weekday” and the y parameter is set to “rh1”,
+representing the weekday and relative humidity variables, respectively.
+We also specify the start date as “7/7/11” and the end date as
+“7/28/11”. Lastly, we set graph_type to “scatter” to generate a scatter
+plot.
 
 ``` r
-
-plot_buoy_data (x="weekday", y="rh1", start_date="7/7/11", end_date="7/28/11", graph_type="line")
+# Generate a scatter plot of relative humidity vs. time of day
+plot_buoy_data(x = "weekday", y = "rh1", start_date = "7/7/11", end_date = "7/28/11", graph_type = "scatter")
 ```
 
-![](MLBuoy---README-Helper_files/figure-gfm/unnamed-chunk-5-2.png)<!-- -->
+![](MLBuoy-README-Helper_files/figure-gfm/unnamed-chunk-5-1.png)<!-- -->
+
+Next, we create a line plot using plot_buoy_data() to visualize the
+change in relative humidity by air temperature. We specified x = “rh1”
+and y = “atmp1” and set start_date and end_date to “7/7/11” and
+“7/28/11”, respectively, to limit the data to the specified time period.
 
 ``` r
-
-plot_buoy_data (x="weekday", y="rh1", start_date="7/7/11", end_date="7/28/11", graph_type="bar")
+# Create a line plot of air temperature (y) by relative humidity (x) between 7/7/11 and 7/28/11
+plot_buoy_data(x = "rh1", y = "atmp1", start_date = "7/7/11", end_date = "7/28/11", graph_type = "line")
 ```
 
-![](MLBuoy---README-Helper_files/figure-gfm/unnamed-chunk-5-3.png)<!-- -->
+![](MLBuoy-README-Helper_files/figure-gfm/unnamed-chunk-6-1.png)<!-- -->
+
+We can also generate a bar plot by setting graph_type to “bar”:
 
 ``` r
-
-plot_buoy_data (x="weekday", y="rh1", start_date="7/7/11", end_date="7/28/11", graph_type="boxplot")
+# Generate a bar plot of relative humidity vs. weekday
+plot_buoy_data(x = "weekday", y = "rh1", start_date = "7/7/11", end_date = "7/28/11", graph_type = "bar")
 ```
 
-![](MLBuoy---README-Helper_files/figure-gfm/unnamed-chunk-5-4.png)<!-- -->
+![](MLBuoy-README-Helper_files/figure-gfm/unnamed-chunk-7-1.png)<!-- -->
+
+Finally, we can generate a box plot by setting graph_type to “boxplot”:
+
+``` r
+# Generate a box plot of relative humidity vs. weekday
+plot_buoy_data(x = "weekday", y = "rh1", start_date = "7/7/11", end_date = "7/28/11", graph_type = "boxplot")
+```
+
+![](MLBuoy-README-Helper_files/figure-gfm/unnamed-chunk-8-1.png)<!-- -->
 
 # **Package Development**
 
 The MLBuoy R Package was developed by Beatrice Ngigi and Andrew
 DiLernia.
+
+## References
+
+Biddanda, B., S. Kendall, A. Weinke, I. Stone, N. Dugener, and S.
+Ruberg. Muskegon Lake Observatory Buoy Data: Muskegon Lake, Michigan,
+USA: 2011-2022. (www.gvsu.edu/buoy) Time Series Data accessed: 7 April,
+2023.
