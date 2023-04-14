@@ -98,22 +98,13 @@ plot_buoy_data is designed to retrieve and extracts data from the Muskegon Lake 
 
 The function takes the following parameters:
 
-```{r}
-library(knitr)
-kable(
-  data.frame(
-    Variable = c("x", "y", "start_date", "end_date","graph_type"), 
-    Description = c("The values to be plotted on the x-axis of the graph. If no value is specified, date will be used as the default.", "The values to be used on the y-axis of the graph. Multiple y values should be separated by a comma.","A specific date in time that marks the beginning of a particular period. Date values must be in the format MM/DD/YYYY or M/D/YY. The default value is 10/01/2022.", "A specific date in time that marks the end of a particular period. Values must be in the format MM/DD/YYYY or M/D/YY. The default date is 10/31/2022.", "The type of chart to be plotted. The supported types are scatter, line, bar, and boxplot.")), 
-  format = "pandoc"
-)
-```
-Variable     Description                                                                                                                                                       
------------  ------------------------------------------------------------------------------------------------------------------------------------------------------------------
-x            The values to be plotted on the x-axis of the graph. If no value is specified, date will be used as the default.                                                  
-y            The values to be used on the y-axis of the graph. Multiple y values should be separated by a comma.                                                               
-start_date   A specific date in time that marks the beginning of a particular period. Date values must be in the format MM/DD/YYYY or M/D/YY. The default value is 10/01/2022. 
-end_date     A specific date in time that marks the end of a particular period. Values must be in the format MM/DD/YYYY or M/D/YY. The default date is 10/31/2022.             
-graph_type   The type of chart to be plotted. The supported types are scatter, line, bar, and boxplot.      
+| Variable   | Description                                                                                                                                                       |
+|:-----------|:------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| x          | The values to be plotted on the x-axis of the graph. If no value is specified, date will be used as the default.                                                  |
+| y          | The values to be used on the y-axis of the graph. Multiple y values should be separated by a comma.                                                               |
+| start_date | A specific date in time that marks the beginning of a particular period. Date values must be in the format MM/DD/YYYY or M/D/YY. The default value is 10/01/2022. |
+| end_date   | A specific date in time that marks the end of a particular period. Values must be in the format MM/DD/YYYY or M/D/YY. The default date is 10/31/2022.             |
+| graph_type | The type of chart to be plotted. The supported types are scatter, line, bar, and boxplot.                                                                         |   
 
 Note: The arguments for x and y must be supported values. For more information, please visit the Grand Valley State University Muskegon Lake Buoy API website: https://www.gvsu.edu/wri/buoy/data-api.htm
 
