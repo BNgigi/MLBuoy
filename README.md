@@ -1,3 +1,8 @@
+---
+title: "MLBuoy R Package Vignette"
+output: github_document
+---
+
 # MLBuoy
 Muskegon Lake Buoy
 
@@ -136,49 +141,27 @@ Next, we will generate a scatter plot using the plot_buoy_data function. The x p
 # Generate a scatter plot of relative humidity vs. time of day
 plot_buoy_data(x = "weekday", y = "rh1", start_date = "7/7/11", end_date = "7/28/11", graph_type = "scatter")
 ```
-![](MLBuoy---README-Helper_files/figure-gfm/unnamed-chunk-5-1.png)<!-- -->
 
 Next, we create a line plot using plot_buoy_data() to visualize the change in relative humidity by air temperature. We specified x = "rh1" and y = "atmp1" and set start_date and end_date to "7/7/11" and "7/28/11", respectively, to limit the data to the specified time period. 
 
 ```{r}
 # Create a line plot of air temperature (y) by relative humidity (x) between 7/7/11 and 7/28/11
 plot_data <- plot_buoy_data(x = "rh1", y = "atmp1", start_date = "7/7/11", end_date = "7/28/11", graph_type = "line")
-
-# Save the plot as a PNG image
-png("line_plot.png", width = 800, height = 600, res = 72)
-print(plot_data)
-dev.off()
 ```
-
-![ ](line_plot.png)
 
 We can also generate a bar plot by setting graph_type to "bar":
 
 ```{r}
 # Generate a bar plot of relative humidity vs. weekday
 plot_data <- plot_buoy_data(x = "weekday", y = "rh1", start_date = "7/7/11", end_date = "7/28/11", graph_type = "bar")
-
-# Save the plot as a PNG image
-png("bar_plot.png", width = 800, height = 600, res = 72)
-print(plot_data)
-dev.off()
 ```
-
-![ ](bar_plot.png)
 
 Finally, we can generate a box plot by setting graph_type to "boxplot": 
 
 ```{r}
 # Generate a box plot of relative humidity vs. weekday
 plot_data <- plot_buoy_data(x = "weekday", y = "rh1", start_date = "7/7/11", end_date = "7/28/11", graph_type = "boxplot")
-
-# Save the plot as a PNG image
-png("box_plot.png", width = 800, height = 600, res = 72)
-print(plot_data)
-dev.off()
 ```
-
-![ ](box_plot.png)
 
 # **Package Development**
 
