@@ -97,20 +97,6 @@ knitr::kable(head(buoyData, n = 12))
 |         5 |   66.20 |   76.96 |   76.86 | 0011-07-28 |
 |         5 |      NA |      NA |      NA | 0011-07-28 |
 |         5 |      NA |      NA |      NA | 0011-07-28 |
-| x_weekday | y_atmp1 | y_tp001 | y_tp002 | date       |
-|      ———: |    ——-: |    ——-: |    ——-: | :———-      |
-|         5 |   68.00 |   76.96 |   76.96 | 0011-07-28 |
-|         5 |      NA |      NA |      NA | 0011-07-28 |
-|         5 |      NA |      NA |      NA | 0011-07-28 |
-|         5 |   67.46 |   77.09 |   76.86 | 0011-07-28 |
-|         5 |      NA |      NA |      NA | 0011-07-28 |
-|         5 |      NA |      NA |      NA | 0011-07-28 |
-|         5 |   66.92 |   76.96 |   76.86 | 0011-07-28 |
-|         5 |      NA |      NA |      NA | 0011-07-28 |
-|         5 |      NA |      NA |      NA | 0011-07-28 |
-|         5 |   66.20 |   76.96 |   76.86 | 0011-07-28 |
-|         5 |      NA |      NA |      NA | 0011-07-28 |
-|         5 |      NA |      NA |      NA | 0011-07-28 |
 
 In this example, we are utilizing the fetch_buoy_data() function to
 retrieve data for atmp1, tp001, and tp002 for each day of the week
