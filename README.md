@@ -5,7 +5,7 @@ Muskegon Lake Buoy
 
 Grand Valley State University's Robert B. Annis Water Resources Institute (AWRI) established a buoy-based observatory in Muskegon Lake in 2010. The Muskegon Lake Buoy is an important tool for monitoring the conditions of the lake and providing valuable information about the environment. It provides current conditions and historic data of Muskegon Lake in Muskegon County, Michigan going back to 2011, enabling researchers and stakeholders to gain a comprehensive understanding of the lake's ecosystem over time. 
 
-In order to facilitate ease of extraction and visualization of the data, we developed an R Package called MLBuoy that utilizes an Application Programming Interface (API) to provide users with an efficient way to access and work with the data from the Muskegon Lake Buoy. The R Package includes various functions and tools that enable users to easily extract, manipulate, and visualize the data, allowing for in-depth analysis and insights. By utilizing an API, the MLBuoy package makes it simple for users to access and use the data in their own applications, software, and workflows.
+In order to streamline the process of extracting and visualizing data from the Buoy, we have developed an R Package named MLBuoy that employs an Application Programming Interface (API). This package serves as an efficient means for users to access and work with the data, ensuring ease of use and maximum convenience. The package includes a variety of functions and tools that enable users to extact, manipulate, and visualize the data with ease, allowing for in-depth analysis and insights that can inform data-driven decision-making.
 
 The first function, fetch_buoy_data, obtains data on current and historical conditions of Muskegon Lake in Muskegon County, Michigan from the Muskegon Lake Buoy API. The second function, plot_buoy_data, offers a simple method to visualize data obtained from Muskegon Lake Buoy.
 
@@ -14,7 +14,7 @@ The first function, fetch_buoy_data, obtains data on current and historical cond
 | Function | Description |
 |----------|----------|
 | fetch_buoy_data | Extracts and obtains data on current and historical conditions of Muskegon Lake in Muskegon County, Michigan from the Muskegon Lake Buoy API. |
-| plot_buoy_data | Retrieves and extracts data from the Muskegon Lake Buoy through the use of an Application Programming Interface (API). The raw data is then transformed into an easy-to-read and visually appealing graph, facilitating comprehension and analysis. |
+| plot_buoy_data | Retrieves and extracts data from the Muskegon Lake Buoy through the use of an API. The raw data is then transformed into an easy-to-read and visually appealing graph, facilitating comprehension and analysis. |
 
 
 ## Installation
@@ -104,9 +104,8 @@ within the time frame of July 7, 2011 to July 28, 2011.
 
 # **Function 2: Plot Muskegon Lake Buoy Data**
 
-plot_buoy_data() function is designed to retrieve and extracts data from
-the Muskegon Lake Buoy through the use of an Application Programming
-Interface (API). The raw data is then transformed into an easy-to-read
+plot_buoy_data() function is designed to retrieve and extract data from
+the Muskegon Lake Buoy through the use of an API. The raw data is then transformed into an easy-to-read
 and visually appealing graph, facilitating comprehension and analysis.
 
 ## **Parameters**
@@ -202,7 +201,7 @@ plot_buoy_data(x = "weekday", y = "rh1", start_date = "7/7/11", end_date = "7/28
 The MLBuoy R Package was developed by Beatrice Ngigi and Andrew
 DiLernia.
 
-## References
+# References
 
 Biddanda, B., S. Kendall, A. Weinke, I. Stone, N. Dugener, and S.
 Ruberg. Muskegon Lake Observatory Buoy Data: Muskegon Lake, Michigan,
